@@ -33,7 +33,7 @@ export function NeurexHero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
           {/* Left Column: Massive Bold Heading */}
-          <div className="lg:col-span-7 space-y-5 animate-in fade-in duration-500">
+          <div className="lg:col-span-7 space-y-5 animate-in fade-in duration-500 animate-float-slow">
             {/* Live Status Badge with glowing animated border */}
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-400/25 animate-border-glow text-xs font-semibold text-blue-300 shadow-lg shadow-blue-500/10">
               <span className="relative flex h-2 w-2">
@@ -47,13 +47,13 @@ export function NeurexHero() {
             <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-bold tracking-tight text-white leading-[1.06]">
               Unlock your new <br className="hidden sm:inline" />
               media downloads <br className="hidden sm:inline" />
-              with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-200">SocialVideo<span className="text-yellow-400">Downloader</span>.</span>
+              with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-white to-blue-200 animate-[pulse_3s_ease-in-out_infinite]">SocialVideo<span className="text-yellow-400 animate-[glow_2.5s_ease-in-out_infinite]">Downloader</span>.</span>
             </h1>
           </div>
 
           {/* Right Column: Explanatory Copy + Yellow Pill Button + Social Proof */}
           <div className="lg:col-span-5 flex flex-col justify-between pt-2 space-y-8 animate-in fade-in duration-500">
-            <p className="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed animate-[fadeInUp_0.8s_ease-out]">
               Built-in controls and stream automation for all public media extraction, helping creators lead with confidence while saving every video in original HD quality.
             </p>
 
