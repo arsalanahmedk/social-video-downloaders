@@ -4,6 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { NeurexNavbar } from '@/components/neurex/neurex-navbar'
 import { NeurexFooter } from '@/components/neurex/neurex-footer'
+import { apiUrl } from '@/lib/api-url'
 import { CheckCircle2, Activity, Server, ShieldCheck, ArrowUpRight, Sparkles, AlertTriangle, RefreshCw } from 'lucide-react'
 
 type PlatformStatus = {
@@ -53,7 +54,7 @@ export default function StatusPage() {
     setLoading(true)
     setFailed(false)
     try {
-      const res = await fetch('/api/v1/status', { cache: 'no-store' })
+      const res = await fetch(apiUrl('/api/v1/status'), { cache: 'no-store' })
       if (!res.ok) throw new Error('status check failed')
       setData(await res.json())
     } catch {

@@ -29,6 +29,7 @@ import {
 import { platforms, type PlatformConfig } from '@/lib/platforms/registry'
 import { type ResolvedMedia } from '@/lib/services/resolver'
 import { useMediaDownload } from '@/hooks/use-media-download'
+import { apiUrl } from '@/lib/api-url'
 import { WorksWheel } from '@/components/ui/works-wheel'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -176,7 +177,7 @@ export function PlatformDownloader({ platform }: { platform: PlatformConfig }) {
       setLoadingStep('Verifying audio and video bitrates...')
       await new Promise((r) => setTimeout(r, 350))
 
-      const res = await fetch('/api/v1/resolve', {
+      const res = await fetch(apiUrl('/api/v1/resolve'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: targetUrl.trim(), platformHint: platform.id }),

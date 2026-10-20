@@ -26,6 +26,7 @@ import { NeurexNavbar } from '@/components/neurex/neurex-navbar'
 import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { type ResolvedMedia } from '@/lib/services/resolver'
 import { useMediaDownload } from '@/hooks/use-media-download'
+import { apiUrl } from '@/lib/api-url'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export type ToolPageConfig = {
@@ -114,7 +115,7 @@ export function SpecializedToolPage({ config }: { config: ToolPageConfig }) {
       setLoadingStep('Verifying audio and video bitrates...')
       await new Promise((r) => setTimeout(r, 350))
 
-      const res = await fetch('/api/v1/resolve', {
+      const res = await fetch(apiUrl('/api/v1/resolve'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: targetUrl.trim(), platformHint: config.targetPlatformId }),

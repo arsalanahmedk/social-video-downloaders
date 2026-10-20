@@ -65,6 +65,26 @@ npm run dev
 
 Open `http://localhost:3000` in your browser.
 
+## Vercel Frontend + Render API
+
+The downloader requires Python, `yt-dlp`, and `ffmpeg`, so the API should run on a Docker-capable Render Web Service. The repository includes [`Dockerfile`](./Dockerfile) and [`.dockerignore`](./.dockerignore) for that service.
+
+On Render, create a Docker Web Service from this repository and set:
+
+```text
+PYTHON_BIN=python3
+YT_DLP_TIMEOUT_MS=60000
+API_ALLOWED_ORIGINS=https://social-video-downloaders.vercel.app
+```
+
+Set the Render health check path to `/api/v1/health`. After deployment, configure this Vercel environment variable and redeploy the frontend:
+
+```text
+NEXT_PUBLIC_API_URL=https://your-render-service.onrender.com
+```
+
+For a custom frontend domain, include both the Vercel URL and custom domain in `API_ALLOWED_ORIGINS`, separated by commas. Keep `NEXT_PUBLIC_API_URL` free of a trailing slash.
+
 ## API Surface
 
 - `GET /api/v1/health` - Health check status, uptime, and active security components.

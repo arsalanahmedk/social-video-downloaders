@@ -5,6 +5,7 @@ import { platforms, type PlatformConfig } from '@/lib/platforms/registry'
 import { type ResolvedMedia } from '@/lib/services/resolver'
 import { DownloaderForm } from './downloader-form'
 import { useMediaDownload } from '@/hooks/use-media-download'
+import { apiUrl } from '@/lib/api-url'
 
 // ---------------------------------------------------------------------------
 // Direct media URL detection
@@ -173,7 +174,7 @@ export function UniversalDownloader() {
 
       // ── Standard path: social media post URL ─────────────────────────────
       setLoadingStep('Connecting to platform & inspecting media streams (usually 5–15 s)...')
-      const res = await fetch('/api/v1/resolve', {
+      const res = await fetch(apiUrl('/api/v1/resolve'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: targetUrl.trim() })

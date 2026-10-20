@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { createSafeFilename } from '@/lib/utils/filename'
+import { apiUrl } from '@/lib/api-url'
 
 export type DownloadFormat = {
   id: string
@@ -88,7 +89,7 @@ export function useMediaDownload() {
     setValidationInfo(null)
 
     try {
-      const startRes = await fetch('/api/v1/download', {
+      const startRes = await fetch(apiUrl('/api/v1/download'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -120,7 +121,7 @@ export function useMediaDownload() {
           throw new Error('The download took too long. Please try a lower quality.')
         }
 
-        const statusRes = await fetch(statusUrl, { cache: 'no-store' })
+        const statusRes = await fetch(apiUrl(statusUrl), { cache: 'no-store' })
         const statusData = await statusRes.json()
 
         if (!statusRes.ok) {
@@ -165,7 +166,9 @@ export function useMediaDownload() {
       const finalFilename = createSafeFilename(completedFilename || title || 'Media', ext)
 
       // Target direct filename route so the browser URL path itself ends with .mp4 / .mp3 / .jpg
-      const finalDownloadUrl = `/api/v1/download/${encodeURIComponent(finalFilename)}?jobId=${encodeURIComponent(jobId)}`
+      const finalDownloadUrl = apiUrl(
+        `/api/v1/download/${encodeURIComponent(finalFilename)}?jobId=${encodeURIComponent(jobId)}`
+      )
 
       setDownloadUrl(finalDownloadUrl)
       setReadyFilename(finalFilename)
