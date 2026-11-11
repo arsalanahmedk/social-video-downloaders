@@ -85,6 +85,12 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
         />
+        {/* Google AdSense verification (publisher account) — required for the AdSense site review. */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3329860361873436"
+          crossOrigin="anonymous"
+        />
       </head>
       <body
         style={{
