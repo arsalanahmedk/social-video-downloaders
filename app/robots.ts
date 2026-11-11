@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/_next/', '/download/']
       }
     ],
-    sitemap: 'https://socialvideodownloader.com/sitemap.xml',
-    host: 'https://socialvideodownloader.com'
+    sitemap: 'https://www.socialvideodownloader.online/sitemap.xml',
+    host: 'https://www.socialvideodownloader.online'
   }
 }

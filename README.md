@@ -1,10 +1,10 @@
-# SocialVideoDownloader (socialvideodownloader.com)
+# SocialVideoDownloader (socialvideodownloader.online)
 
 SocialVideoDownloader is a modern, standard web platform for downloading publicly accessible social media media content. It operates exclusively on public streams and complies with internet standards and platform security controls.
 
 ## Domain & Project Name
 
-- **Domain:** `socialvideodownloader.com`
+- **Domain:** `socialvideodownloader.online`
 - **Project Name:** `SocialVideoDownloader`
 - **Brand Mark:** `SVD`
 

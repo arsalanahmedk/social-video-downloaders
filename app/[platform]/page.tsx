@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ platform:
     openGraph: {
       title: `${platform.name} Downloader | SocialVideoDownloader`,
       description: platform.description,
-      url: `https://socialvideodownloader.com/${platform.id}`,
+      url: `https://www.socialvideodownloader.online/${platform.id}`,
       siteName: 'SocialVideoDownloader',
       type: 'website'
     }

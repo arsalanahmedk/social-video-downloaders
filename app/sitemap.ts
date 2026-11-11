@@ -37,7 +37,7 @@ const SEO_ROUTES = [
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://socialvideodownloader.com'
+  const baseUrl = 'https://www.socialvideodownloader.online'
   const now = new Date()
 
   return [

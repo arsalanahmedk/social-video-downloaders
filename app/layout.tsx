@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://socialvideodownloader.com'),
+  metadataBase: new URL('https://www.socialvideodownloader.online'),
   title: {
     default: 'SocialVideoDownloader | Free Public Video Downloader',
     template: '%s | SocialVideoDownloader'
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SocialVideoDownloader | Free Public Video Downloader',
     description: 'Download public videos, Reels, Shorts, photos, and audio in high quality. No registration required.',
-    url: 'https://socialvideodownloader.com',
+    url: 'https://www.socialvideodownloader.online',
     siteName: 'SocialVideoDownloader',
     locale: 'en_US',
     type: 'website',
@@ -100,21 +100,21 @@ export default function RootLayout({
               '@graph': [
                 {
                   '@type': 'Organization',
-                  '@id': 'https://socialvideodownloader.com/#organization',
+                  '@id': 'https://www.socialvideodownloader.online/#organization',
                   name: 'SocialVideoDownloader',
-                  url: 'https://socialvideodownloader.com',
-                  logo: 'https://socialvideodownloader.com/icon.svg',
+                  url: 'https://www.socialvideodownloader.online',
+                  logo: 'https://www.socialvideodownloader.online/icon.svg',
                   description: 'A permission-first tool for downloading publicly accessible social media media.'
                 },
                 {
                   '@type': 'WebApplication',
-                  '@id': 'https://socialvideodownloader.com/#application',
+                  '@id': 'https://www.socialvideodownloader.online/#application',
                   name: 'SocialVideoDownloader',
-                  url: 'https://socialvideodownloader.com',
+                  url: 'https://www.socialvideodownloader.online',
                   applicationCategory: 'MultimediaApplication',
                   operatingSystem: 'Web browser',
                   isAccessibleForFree: true,
-                  publisher: { '@id': 'https://socialvideodownloader.com/#organization' }
+                  publisher: { '@id': 'https://www.socialvideodownloader.online/#organization' }
                 }
               ]
             })
