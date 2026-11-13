@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import {
   ShieldCheck,
+  BookOpen,
   ArrowUpRight,
   Home,
   Sparkles,
@@ -203,6 +204,7 @@ export function NeurexFooter() {
               {[
                 { label: 'Home', href: '/', icon: Home, gradient: 'from-blue-600 to-cyan-500' },
                 { label: 'How It Works', href: '/how-it-works', icon: Sparkles, gradient: 'from-indigo-600 to-purple-500' },
+                { label: 'Guides', href: '/guides', icon: BookOpen, gradient: 'from-emerald-500 to-teal-500' },
                 { label: 'Supported Sites', href: '/supported-sites', icon: Compass, gradient: 'from-cyan-500 to-emerald-500' },
                 { label: 'FAQ & Help', href: '/faq', icon: HelpCircle, gradient: 'from-amber-500 to-orange-500' },
               ].map((nav, i) => {

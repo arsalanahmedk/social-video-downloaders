@@ -350,7 +350,7 @@ export function PlatformDownloader({ platform }: { platform: PlatformConfig }) {
           <div className="bg-[#0b1329] border border-blue-900/50 rounded-2xl p-6 text-center space-y-3 text-white">
             <div className="w-8 h-8 border-3 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto" />
             <div className="text-sm font-bold">{loadingStep || 'Resolving public stream...'}</div>
-            <p className="text-xs text-slate-400">Parsing platform manifest without watermarks</p>
+            <p className="text-xs text-slate-400">Parsing platform manifest</p>
           </div>
         </div>
       )}

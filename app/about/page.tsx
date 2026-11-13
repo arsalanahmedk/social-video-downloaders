@@ -92,6 +92,48 @@ export default function AboutPage() {
               </div>
             </div>
 
+            {/* What the tool does — and does not do */}
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-[32px] p-8 sm:p-12 shadow-sm space-y-5">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                What this tool does — and does not do
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                SocialVideoDownloader is a free, browser-based tool for saving media from
+                posts that are already public. You paste the link to a public Instagram
+                Reel, TikTok video, YouTube Short, Facebook video, X clip or Reddit post,
+                choose a video or audio format, and the file is streamed directly to your
+                device. There is no account to create, no app to install, and no payment
+                involved. The tool is built for everyday, practical uses: keeping a copy
+                of a video you posted yourself, saving a public clip to watch offline on
+                a flight, or collecting reference material for a class project or edit —
+                always with the creator&apos;s permission where permission is needed.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Just as important is what the tool does not do. It cannot open private
+                accounts, private groups, or posts that require a login. It does not
+                bypass paywalls, subscriptions, or digital rights management, and it
+                does not remove a watermark that is baked into the original video. It
+                does not store your downloaded files on our servers, and it does not
+                keep a log of the links you paste. If a link does not work, it is usually
+                because the post is private, has been deleted, or the platform has
+                changed how it serves that video — in those cases the honest answer is
+                that the file cannot be downloaded here.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Saving a video does not transfer any rights in it. The creator still
+                owns their work, so a downloaded file is for your personal, offline use
+                unless the creator has said otherwise. If you want to repost, remix, or
+                use someone else&apos;s video in your own content, ask them first and give
+                them credit. Our step-by-step guides explain how to download from each
+                platform and how to stay on the right side of copyright and each
+                platform&apos;s rules — start with the{' '}
+                <Link href="/guides" className="text-blue-600 font-semibold underline">
+                  guides page
+                </Link>
+                .
+              </p>
+            </div>
+
             {/* Bottom Call to Action Card */}
             <div className="rounded-[32px] bg-gradient-to-r from-blue-900 to-indigo-950 p-8 sm:p-12 text-center text-white space-y-6 shadow-2xl relative overflow-hidden mt-12">
               <div className="space-y-3 relative z-10">

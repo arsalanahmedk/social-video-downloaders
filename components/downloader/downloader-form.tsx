@@ -271,7 +271,7 @@ export function DownloaderForm({
         <div className="premium-loading-card rounded-2xl p-6 text-center space-y-3 mt-4" aria-live="polite">
           <div className="w-8 h-8 border-3 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto" />
           <div className="text-sm font-bold">{loadingStep || 'Connecting to public endpoint...'}</div>
-          <p className="text-xs text-slate-400">Inspecting video streams &amp; audio bitrates without watermarks</p>
+          <p className="text-xs text-slate-400">Inspecting video streams &amp; audio bitrates</p>
         </div>
       )}
 

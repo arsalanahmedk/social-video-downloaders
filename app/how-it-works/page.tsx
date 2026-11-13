@@ -157,7 +157,7 @@ export default function HowItWorksPage() {
                   4. High-Speed Direct Stream Delivery
                 </h3>
                 <p className="text-slate-600 leading-relaxed text-base">
-                  When you select your format and hit download, SocialVideoDownloader streams the media directly to your browser with appropriate attachment headers. The media is saved cleanly to your device without watermarks or file corruption.
+                  When you select your format and hit download, SocialVideoDownloader streams the media directly to your browser with appropriate attachment headers. The media is saved to your device in the format you selected.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-sm font-medium text-slate-800">
                   <div className="flex items-center gap-2">

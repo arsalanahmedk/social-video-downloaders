@@ -30,7 +30,7 @@ export default function HomePage() {
         {/* 3. Hero Visual Showcase Banner (Screenshot 4: Royal Blue Container, Creator Portrait, Floating Balance/Metrics Cards with Animations) */}
         <HeroShowcase />
 
-        {/* 4. The Impact Section (Screenshot 1: 99%, 90M, 100%, 12+ Cards in Clean Grid) */}
+        {/* 4. What the tool does — honest feature cards, no usage statistics */}
         <ImpactStats />
 
         {/* 5. 3-Step Process: Copy -> Paste -> Download */}

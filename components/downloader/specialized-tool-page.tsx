@@ -274,7 +274,7 @@ export function SpecializedToolPage({ config }: { config: ToolPageConfig }) {
               {/* Permission notice */}
               <div className="mt-4 pt-3.5 border-t border-white/5 flex items-center gap-2 text-xs text-slate-400">
                 <ShieldCheck size={15} className="text-emerald-400 flex-shrink-0" />
-                <span>Public media only. 100% free, zero watermark guarantee, and no login required.</span>
+                <span>Public media only. Free, and no login required.</span>
               </div>
             </div>
 
@@ -307,7 +307,7 @@ export function SpecializedToolPage({ config }: { config: ToolPageConfig }) {
             <div className="bg-[#0b1329] border border-blue-900/50 rounded-2xl p-6 text-center space-y-3 text-white">
               <div className="w-8 h-8 border-3 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto" />
               <div className="text-sm font-bold">{loadingStep || 'Resolving public stream...'}</div>
-              <p className="text-xs text-slate-400">Parsing platform manifest without watermarks</p>
+              <p className="text-xs text-slate-400">Parsing platform manifest</p>
             </div>
           </div>
         )}

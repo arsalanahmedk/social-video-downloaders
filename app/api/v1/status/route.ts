@@ -68,7 +68,7 @@ async function probeExtractors(): Promise<Set<string>> {
 
 /**
  * Reports genuine component health. The previous status page rendered a fixed
- * "Latency: 380ms" and "99.98% uptime" for every platform with no data source
+ * Do not invent latency or uptime figures here — only report values actually measured.
  * behind it, so it always claimed to be fully operational.
  */
 export async function GET() {

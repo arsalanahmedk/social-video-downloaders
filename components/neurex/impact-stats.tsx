@@ -41,35 +41,35 @@ export function ImpactStats() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-950 leading-tight">
-            The impact we’ve created <br className="hidden sm:inline" />
-            for businesses &amp; creators
+            A free tool for saving public videos <br className="hidden sm:inline" />
+            you have the right to keep
           </h2>
         </div>
 
         {/* 4 Clean Cards in Horizontal Grid (Exact match to Screenshot 1) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard
-            value="99%"
-            label="Annual efficiency savings that drive results"
-            subtext="99.9% extraction success rate"
+            value="Free"
+            label="Free to use, no account needed"
+            subtext="No sign-up or payment required"
             delay={0.1}
           />
           <StatCard
-            value="90M"
-            label="Yearly efficiency gains that truly matter"
-            subtext="Over 150M+ files downloaded"
+            value="HD"
+            label="Save public videos in the quality the platform provides"
+            subtext="MP4 video and MP3 audio where available"
             delay={0.2}
           />
           <StatCard
-            value="100%"
-            label="Goal completion rate on initial execution"
-            subtext="Zero watermark guarantee"
+            value="Public"
+            label="Public posts only — no private accounts, logins or DRM"
+            subtext="Permission-first by design"
             delay={0.3}
           />
           <StatCard
-            value="12+"
-            label="Key yearly efficiency savings that count"
-            subtext="Major platforms supported"
+            value="10"
+            label="Major platforms supported"
+            subtext="Instagram, TikTok, YouTube, Facebook, X, Reddit and more"
             delay={0.4}
           />
         </div>

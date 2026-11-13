@@ -11,15 +11,15 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Are downloaded videos free of watermarks?',
-    a: 'Yes! When platforms like TikTok or Instagram deliver original stream files without watermarks, we preserve that stream directly so you receive clean, original-quality media.'
+    a: 'When a platform delivers the original stream file, we save that file as provided. Some platforms add their own watermark to the video itself, and we cannot remove a watermark that is part of the source video.'
   },
   {
     q: 'Can I extract audio only (MP3) from videos?',
-    a: 'Absolutely. Every supported video link provides an automatic audio extraction option (high-bitrate 320kbps MP3 or original AAC stream) suitable for editing or offline listening.'
+    a: 'Where the source provides a separate audio stream, you can save it as MP3 or AAC for editing or offline listening.'
   },
   {
     q: 'Do you store or log my downloaded files?',
-    a: 'No. We operate under a strict zero-log architecture. Files are streamed directly to your browser memory or storage. We do not store user files, URLs, or personal data on persistent disks.'
+    a: 'No. Files are streamed directly to your browser. We do not store your downloaded files on our servers.'
   },
   {
     q: 'Is this service free to use?',

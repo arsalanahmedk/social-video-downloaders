@@ -8,7 +8,7 @@ export function HomePortal() {
   return (
     <section className="home-portal">
       <div className="home-hero shell">
-        <div className="hero-rating"><span className="rating-stars">★★★★★</span> 4.9/5.0 · Trusted by creators worldwide</div>
+        <div className="hero-rating">Free · No sign-up · Public posts only</div>
         <h1>Save the moments<br /><em>worth keeping.</em></h1>
         <p className="hero-copy">Download public videos, reels, stories, and audio from the platforms you use every day. Simple, fast, and ready when you are.</p>
         <Link href="#resolver" className="hero-cta">Start downloading <span>↗</span></Link>

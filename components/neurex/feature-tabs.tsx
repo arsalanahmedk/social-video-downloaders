@@ -19,9 +19,9 @@ const TAB_DATA: Record<TabKey, TabContent> = {
     subtitle: 'Empowering you to make archival and content decisions with accurate information and powerful tools.',
     badge: 'Media Control',
     bullets: [
-      '12+ social networks: Instagram Reels, TikTok, YouTube Shorts, X & Reddit',
-      'Lossless audio extraction to 320kbps MP3 and high-clarity AAC',
-      'Priority access to highest available resolution without watermark injection'
+      '10 major platforms: Instagram Reels, TikTok, YouTube Shorts, X & Reddit',
+      'Audio extraction to MP3 and AAC where the source provides it',
+      'The highest resolution the public stream makes available'
     ]
   },
   OPTIMISE: {
@@ -31,16 +31,16 @@ const TAB_DATA: Record<TabKey, TabContent> = {
     bullets: [
       'Instant separation of background music, podcasts, and speech tracks',
       'Automatic container remuxing to standard MP4, WebM, and MP3 files',
-      'Zero quality degradation and zero re-encoding artifacts'
+      'Files are saved as provided by the source platform, without re-encoding where possible'
     ]
   },
   PERFORMANCE: {
     heading: 'Lightning-fast delivery with client-first privacy',
-    subtitle: 'Engineered for sub-second responses with zero logs and zero server storage of personal data.',
+    subtitle: 'Built to respond quickly, without storing your files or personal data on our servers.',
     badge: 'High Performance',
     bullets: [
-      'Sub-500ms URL stream inspection and format discovery',
-      'Direct peer streaming via global low-latency CDN edge nodes',
+      'Fast URL inspection and format discovery',
+      'Files stream directly to your browser',
       'SSRF-hardened sandbox with complete compliance with public access rules'
     ]
   }

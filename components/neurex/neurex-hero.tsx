@@ -41,7 +41,7 @@ export function NeurexHero() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               <Sparkles size={13} className="text-yellow-400" />
-              <span>Next-Gen Universal Media Engine • 100% Free &amp; Private</span>
+              <span>Free tool for downloading your own public posts • No sign-up</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-bold tracking-tight text-white leading-[1.06]">
@@ -67,29 +67,9 @@ export function NeurexHero() {
                 <ArrowRight size={17} className="text-black" />
               </a>
 
-              {/* Overlapping User Avatars + Review Rating */}
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2.5 overflow-hidden">
-                  <img
-                    className="inline-block h-10 w-10 rounded-full ring-2 ring-[#030712] object-cover"
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
-                    alt="User"
-                  />
-                  <img
-                    className="inline-block h-10 w-10 rounded-full ring-2 ring-[#030712] object-cover"
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
-                    alt="User"
-                  />
-                  <img
-                    className="inline-block h-10 w-10 rounded-full ring-2 ring-[#030712] object-cover"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
-                    alt="User"
-                  />
-                </div>
-                <div className="text-sm">
-                  <div className="font-semibold text-white">4.9/5 Rating</div>
-                  <div className="text-xs text-slate-400">2,000+ happy creators</div>
-                </div>
+              <div className="text-sm">
+                <div className="font-semibold text-white">Free · No sign-up</div>
+                <div className="text-xs text-slate-400">For your own public posts, and public content you have permission to save</div>
               </div>
             </div>
           </div>
@@ -109,7 +89,7 @@ export function NeurexHero() {
                   Live Stream Extractor Engine
                 </div>
                 <span className="text-xs text-slate-400 hidden sm:inline">
-                  Original 1080p • MP3 320kbps • No Watermark
+                  MP4 • MP3 • HD where available
                 </span>
               </div>
               <UniversalDownloader />
@@ -121,7 +101,7 @@ export function NeurexHero() {
         <div className="mt-20 pt-10 border-t border-white/10">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <p className="text-sm font-medium text-slate-400 flex-shrink-0 tracking-wide">
-              Trusted by 500,000+ creators worldwide
+              Works with the platforms you already use
             </p>
             <div className="w-full overflow-hidden relative">
               {/* Fade gradient masks on left and right */}

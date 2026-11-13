@@ -107,6 +107,9 @@ export function NeurexNavbar() {
           <Link href="/supported-sites" className={`hover:text-white transition-colors ${pathname === '/supported-sites' ? 'text-white' : ''}`}>
             Supported Sites
           </Link>
+          <Link href="/guides" className={`hover:text-white transition-colors ${pathname === '/guides' ? 'text-white' : ''}`}>
+            Guides
+          </Link>
           <Link href="/faq" className={`hover:text-white transition-colors ${pathname === '/faq' ? 'text-white' : ''}`}>
             Resources
           </Link>
@@ -178,6 +181,13 @@ export function NeurexNavbar() {
                 className="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-white/5"
               >
                 Supported Sites
+              </Link>
+              <Link
+                href="/guides"
+                onClick={() => setMobileOpen(false)}
+                className="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-white/5"
+              >
+                Guides
               </Link>
               <Link
                 href="/faq"

@@ -5,7 +5,7 @@ import { NeurexNavbar } from '@/components/neurex/neurex-navbar'
 import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { Mail, MessageSquare, Send, CheckCircle2, Sparkles, ShieldCheck } from 'lucide-react'
 
-const SUPPORT_EMAIL = 'legal@socialvideodownloader.com'
+const SUPPORT_EMAIL = 'support@socialvideodownloader.online'
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = React.useState(false)
@@ -52,7 +52,7 @@ export default function ContactPage() {
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Have questions, feedback, partnership inquiries, or need assistance? Send us a message and our team will respond promptly.
+              Have questions, feedback, partnership inquiries, or need assistance? Send us a message using the form below — it opens your own mail app with the message addressed to us.
             </p>
           </div>
         </section>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                     Direct inquiries for technical questions, platform updates, or DMCA requests.
                   </p>
                   <p className="text-sm font-semibold text-blue-600">
-                    support@socialvideodownloader.com
+                    support@socialvideodownloader.online
                   </p>
                 </div>
 
@@ -87,7 +87,7 @@ export default function ContactPage() {
                     Report security advisories or copyright takedowns with expedited handling.
                   </p>
                   <p className="text-sm font-semibold text-emerald-600">
-                    legal@socialvideodownloader.com
+                    legal@socialvideodownloader.online
                   </p>
                 </div>
               </div>

@@ -22,17 +22,17 @@ const STEPS = [
       'Paste the link into the extractor input above. Our engine instantly validates the post and analyzes all available stream qualities.',
     icon: Sparkles,
     accent: 'from-amber-500 to-yellow-500',
-    highlight: 'Instant stream resolution under 500ms'
+    highlight: 'Fast stream inspection'
   },
   {
     step: '03',
     badge: 'Step Three',
-    title: 'Download Clean 1080p / MP3',
+    title: 'Download MP4 video or MP3 audio',
     description:
-      'Select your preferred video resolution or audio format. Save the clean file directly to your device with zero added watermark.',
+      'Select your preferred video resolution or audio format. Save the file directly to your device.',
     icon: Download,
     accent: 'from-emerald-500 to-teal-600',
-    highlight: 'Zero compression loss & 100% private'
+    highlight: 'Your files are not stored on our servers'
   }
 ]
 
@@ -96,6 +96,17 @@ export function HowItWorksSection() {
               </div>
             )
           })}
+        </div>
+
+        {/* Guides link */}
+        <div className="text-center">
+          <p className="text-slate-600 text-sm sm:text-base">
+            Want step-by-step instructions for each platform? Read the{' '}
+            <a href="/guides" className="text-blue-600 font-semibold underline">
+              guides
+            </a>{' '}
+            — Instagram Reels, TikTok, YouTube Shorts, Facebook, and how to save videos legally.
+          </p>
         </div>
 
         {/* CTA Bar */}

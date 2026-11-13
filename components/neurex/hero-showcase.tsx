@@ -36,7 +36,7 @@ export function HeroShowcase() {
                 <span className="font-semibold text-slate-900 text-sm">Media Stream Quality</span>
                 <MoreVertical size={16} className="text-slate-400 cursor-pointer" />
               </div>
-              <p className="text-[11px] text-slate-400 mb-3">Real-time public media bitrate report</p>
+              <p className="text-[11px] text-slate-400 mb-3">Example of the quality information shown for a video</p>
 
               <div className="flex items-baseline gap-2 mb-4">
                 <span className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
@@ -44,7 +44,7 @@ export function HeroShowcase() {
                 </span>
                 <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
                   <TrendingUp size={12} />
-                  +100% Original
+                  Original quality
                 </span>
               </div>
 
@@ -55,7 +55,7 @@ export function HeroShowcase() {
                     <span className="text-slate-600">Video Bitrate</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-slate-900">14.8 Mbps</span>
+                    <span className="font-bold text-slate-900">As provided</span>
                     <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
                       4K Ultra ↗
                     </span>
@@ -68,7 +68,7 @@ export function HeroShowcase() {
                     <span className="text-slate-600">Audio Track</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-slate-900">320 kbps</span>
+                    <span className="font-bold text-slate-900">As provided</span>
                     <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
                       Lossless ↗
                     </span>
@@ -92,7 +92,7 @@ export function HeroShowcase() {
 
               <div className="flex items-baseline gap-2 mb-3">
                 <span className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
-                  0.4s
+                  Fast
                 </span>
                 <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
                   Instant CDN
@@ -115,8 +115,8 @@ export function HeroShowcase() {
               {/* Progress bar and audio frequency indicator */}
               <div className="mt-3.5 space-y-1">
                 <div className="flex justify-between text-[10px] text-slate-500 font-medium">
-                  <span>Stream Transfer Rate</span>
-                  <span className="text-blue-600 font-semibold">45 MB/s</span>
+                  <span>Transfer</span>
+                  <span className="text-blue-600 font-semibold">Direct to your device</span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div className="bg-blue-600 h-full w-[85%] rounded-full animate-pulse" />
