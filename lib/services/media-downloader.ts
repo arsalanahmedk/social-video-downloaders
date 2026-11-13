@@ -5,6 +5,7 @@ import https from 'https'
 import http from 'http'
 import { createJob, ensureTempRoot, scheduleFileCleanup, updateJob, type DownloadJob } from './download-jobs'
 import { validateMediaFile } from './media-validator'
+import { cookiesArgs } from './cookies'
 import { validatePublicNetworkUrl } from '@/lib/validation/public-url'
 
 const PYTHON_BIN = process.env.PYTHON_BIN || 'python'
@@ -154,6 +155,9 @@ export async function startDownloadJob(input: StartJobInput): Promise<DownloadJo
   if (!isExcluded) {
     args.push('--impersonate', 'chrome')
   }
+
+  // Same account-cookie support as the resolver (see lib/services/cookies.ts).
+  args.push(...cookiesArgs())
 
   args.push('-o', outPattern)
 

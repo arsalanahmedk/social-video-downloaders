@@ -15,3 +15,6 @@ node_modules/
 
 # Local TypeScript build metadata
 *.tsbuildinfo
+# yt-dlp account cookies — a live login session, never commit
+cookies.txt
+*.cookies.txt

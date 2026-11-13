@@ -61,6 +61,8 @@ export type ResolvedMedia = {
   }[]
 }
 
+import { cookiesArgs } from './cookies'
+
 async function extractYtDlpMetadata(targetUrl: string, platformId?: string): Promise<any | null> {
   const startedAt = Date.now()
   const isExcluded = platformId === 'youtube' || platformId === 'instagram'
@@ -78,6 +80,10 @@ async function extractYtDlpMetadata(targetUrl: string, platformId?: string): Pro
       '--no-warnings',
       '--dump-json'
     ]
+    // Account cookies (when configured) let yt-dlp read posts on platforms
+    // that block anonymous datacenter requests (TikTok, LinkedIn, Snapchat,
+    // Reddit). No cookies are configured by default.
+    args.push(...cookiesArgs())
     if (useImpersonate) {
       args.push('--impersonate', 'chrome')
     }
