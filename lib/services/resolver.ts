@@ -78,6 +78,16 @@ async function extractYtDlpMetadata(targetUrl: string, platformId?: string): Pro
       '--no-warnings',
       '--dump-json'
     ]
+    // YouTube's web player client no longer returns a player response to
+    // datacenter IPs ("Failed to extract any player response"). The Android /
+    // iOS clients do not require the web player's PO token, so use them for
+    // YouTube. Overridable via YT_DLP_YOUTUBE_CLIENTS (comma-separated).
+    if (platformId === 'youtube') {
+      args.push(
+        '--extractor-args',
+        `youtube:player_client=${process.env.YT_DLP_YOUTUBE_CLIENTS ?? 'android,ios'}`
+      )
+    }
     if (useImpersonate) {
       args.push('--impersonate', 'chrome')
     }

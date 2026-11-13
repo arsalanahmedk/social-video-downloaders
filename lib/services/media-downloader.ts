@@ -155,6 +155,16 @@ export async function startDownloadJob(input: StartJobInput): Promise<DownloadJo
     args.push('--impersonate', 'chrome')
   }
 
+  // Same YouTube workaround as the resolver: the web player client returns
+  // no player response to datacenter IPs, so download with the Android / iOS
+  // clients (overridable via YT_DLP_YOUTUBE_CLIENTS).
+  if (/youtube\.com|youtu\.be/i.test(input.targetUrl)) {
+    args.push(
+      '--extractor-args',
+      `youtube:player_client=${process.env.YT_DLP_YOUTUBE_CLIENTS ?? 'android,ios'}`
+    )
+  }
+
   args.push('-o', outPattern)
 
   if (input.type === 'audio') {
