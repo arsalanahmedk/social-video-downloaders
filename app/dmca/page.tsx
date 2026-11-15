@@ -4,7 +4,7 @@ import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { ShieldCheck, Scale, FileText } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'DMCA & Copyright Policy | SocialVideoDownloader',
+  title: 'DMCA & Copyright Policy',
   description: 'Learn about our DMCA compliance, copyright holder protections, and takedown notice procedures.',
 }
 

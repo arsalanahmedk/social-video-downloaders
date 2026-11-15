@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { GuideLayout } from '../guide-layout'
 
 export const metadata: Metadata = {
-  title: 'How to Download TikTok Videos Without Watermark | SocialVideoDownloader',
+  title: 'How to Download TikTok Videos Without Watermark',
   description:
     'How to save a public TikTok video without the bouncing watermark on iPhone, Android and desktop — copy the link, paste it into a downloader, and pick the clean MP4. Includes troubleshooting and the rules on reposting.',
   alternates: { canonical: '/guides/how-to-download-tiktok-videos-without-watermark' },

@@ -4,7 +4,7 @@ import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { ShieldCheck, Scale, FileText } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service & Fair Use | SocialVideoDownloader',
+  title: 'Terms of Service & Fair Use',
   description: 'Understand the terms of service, public access policy, and copyright guidelines for SocialVideoDownloader.',
 }
 

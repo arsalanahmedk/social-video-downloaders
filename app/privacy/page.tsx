@@ -4,7 +4,7 @@ import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { ShieldCheck, Lock, EyeOff, FileText } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | SocialVideoDownloader',
+  title: 'Privacy Policy',
   description: 'Learn about our data minimization, zero-logging, and privacy safeguards.',
 }
 

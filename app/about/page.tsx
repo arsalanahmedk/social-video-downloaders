@@ -5,7 +5,7 @@ import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { ShieldCheck, Heart, Users, Target, ArrowRight, Sparkles } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Us | SocialVideoDownloader',
+  title: 'About Us',
   description: 'Learn about the mission, values, and permission-first philosophy behind SocialVideoDownloader.',
 }
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Facebook Reels Downloader | HD MP4 Video | SocialVideoDownloader',
+  title: 'Facebook Reels Downloader | HD MP4 Video',
   description: 'Download public Facebook Reels in Full HD 1080p MP4 directly to your device without quality loss.',
 }
 

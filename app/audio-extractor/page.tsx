@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Universal Social Audio & MP3 Extractor | 320kbps Audio | SocialVideoDownloader',
+  title: 'Universal Social Audio & MP3 Extractor | 320kbps Audio',
   description: 'Extract and download MP3 audio from any public video on YouTube, TikTok, Instagram, Twitter, and Reddit.',
 }
 

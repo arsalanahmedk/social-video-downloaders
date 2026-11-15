@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Instagram Reels Downloader | HD MP4 Without Watermark | SocialVideoDownloader',
+  title: 'Instagram Reels Downloader | HD MP4 Without Watermark',
   description: 'Download public Instagram Reels in original 1080p Full HD video or audio track. Fast, free, and no login required.',
 }
 

@@ -6,7 +6,7 @@ import { BookOpen, ArrowRight } from 'lucide-react'
 import { GUIDE_LINKS } from './guide-layout'
 
 export const metadata: Metadata = {
-  title: 'Guides: How to Download Videos from Instagram, TikTok, YouTube & Facebook | SocialVideoDownloader',
+  title: 'Guides: How to Download Videos from Instagram, TikTok, YouTube & Facebook',
   description:
     'Step-by-step guides to downloading public Instagram Reels, TikTok videos, YouTube Shorts and Facebook videos — and how to save videos for offline viewing legally.',
   alternates: { canonical: '/guides' },

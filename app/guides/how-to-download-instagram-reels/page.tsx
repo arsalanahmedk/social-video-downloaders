@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { GuideLayout } from '../guide-layout'
 
 export const metadata: Metadata = {
-  title: 'How to Download Instagram Reels | SocialVideoDownloader',
+  title: 'How to Download Instagram Reels',
   description:
     'Step-by-step guide to downloading Instagram Reels on iPhone, Android and desktop: copy the Reel link, paste it into a downloader, and save the MP4 — plus what to do when a Reel will not download.',
   alternates: { canonical: '/guides/how-to-download-instagram-reels' },

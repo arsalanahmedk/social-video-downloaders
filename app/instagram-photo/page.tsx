@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Instagram Photo & Carousel Downloader | High Resolution JPG | SocialVideoDownloader',
+  title: 'Instagram Photo & Carousel Downloader | High Resolution JPG',
   description: 'Download full-resolution public Instagram photos, multi-image carousel albums, and high-res cover pictures.',
 }
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'TikTok Downloader Without Watermark | HD MP4 | SocialVideoDownloader',
+  title: 'TikTok Downloader Without Watermark | HD MP4',
   description: 'Download public TikTok videos in full 1080p HD without the floating watermark. Clean, fast, and free.',
 }
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Threads Photo Downloader | Original Resolution JPG | SocialVideoDownloader',
+  title: 'Threads Photo Downloader | Original Resolution JPG',
   description: 'Download high-resolution photos and image galleries from Meta Threads posts in original quality.',
 }
 

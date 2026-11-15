@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Reddit Video Downloader | Merged Audio & HD MP4 | SocialVideoDownloader',
+  title: 'Reddit Video Downloader | Merged Audio & HD MP4',
   description: 'Download Reddit videos with synchronized sound in 1080p Full HD MP4. Fixes silent Reddit video issues cleanly.',
 }
 

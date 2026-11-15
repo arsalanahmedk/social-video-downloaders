@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'TikTok Sound & Audio Downloader | MP3 320kbps | SocialVideoDownloader',
+  title: 'TikTok Sound & Audio Downloader | MP3 320kbps',
   description: 'Extract and download original TikTok sounds, songs, and voice tracks directly into high-quality MP3 format.',
 }
 

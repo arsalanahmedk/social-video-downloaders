@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { GuideLayout } from '../guide-layout'
 
 export const metadata: Metadata = {
-  title: 'How to Download YouTube Shorts | SocialVideoDownloader',
+  title: 'How to Download YouTube Shorts',
   description:
     'Step-by-step guide to downloading YouTube Shorts as MP4 or MP3 on phone and desktop: copy the Short link, paste it into a downloader, pick a format — plus YouTube Premium, offline rules and troubleshooting.',
   alternates: { canonical: '/guides/how-to-download-youtube-shorts' },

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Pinterest Video Downloader | Idea Pins & Clips in HD MP4 | SocialVideoDownloader',
+  title: 'Pinterest Video Downloader | Idea Pins & Clips in HD MP4',
   description: 'Download public Pinterest videos, Idea Pins, and animated clips in 1080p Full HD MP4 directly to your device.',
 }
 

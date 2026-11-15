@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Facebook Video Downloader | Watch Videos & Clips HD | SocialVideoDownloader',
+  title: 'Facebook Video Downloader | Watch Videos & Clips HD',
   description: 'Download public Facebook Watch videos, live replays, and video posts in crisp HD 1080p MP4.',
 }
 

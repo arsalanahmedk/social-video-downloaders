@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { GuideLayout } from '../guide-layout'
 
 export const metadata: Metadata = {
-  title: 'How to Download Facebook Videos | SocialVideoDownloader',
+  title: 'How to Download Facebook Videos',
   description:
     'Step-by-step guide to downloading public Facebook videos and Reels on phone and desktop: copy the video link, paste it into a downloader, and save the MP4 — plus why private groups and friends-only videos cannot be downloaded.',
   alternates: { canonical: '/guides/how-to-download-facebook-videos' },

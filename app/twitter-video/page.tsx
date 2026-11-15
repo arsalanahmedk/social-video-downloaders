@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'X / Twitter Video Downloader | Download Tweets in HD MP4 | SocialVideoDownloader',
+  title: 'X / Twitter Video Downloader | Download Tweets in HD MP4',
   description: 'Download video clips from X (Twitter) posts in 1080p, 720p, or extract MP3 audio. Fast, free, and secure.',
 }
 

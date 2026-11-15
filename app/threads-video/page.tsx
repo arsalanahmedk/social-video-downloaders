@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Threads Video Downloader | Meta Threads Clips & Media | SocialVideoDownloader',
+  title: 'Threads Video Downloader | Meta Threads Clips & Media',
   description: 'Download public videos and clips from Meta Threads posts in 1080p Full HD MP4. Free and fast.',
 }
 

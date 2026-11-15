@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Snapchat Spotlight Downloader | Vertical HD Video | SocialVideoDownloader',
+  title: 'Snapchat Spotlight Downloader | Vertical HD Video',
   description: 'Download public Snapchat Spotlight clips and public stories in full vertical HD 1080p MP4.',
 }
 

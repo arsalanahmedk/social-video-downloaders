@@ -6,7 +6,7 @@ import { Globe, ArrowUpRight, CheckCircle2, ShieldCheck, Download, AlertTriangle
 import { platforms } from '@/lib/platforms/registry'
 
 export const metadata: Metadata = {
-  title: 'Supported Sites & Platforms Directory | SocialVideoDownloader',
+  title: 'Supported Sites & Platforms Directory',
   description: 'Complete directory of supported social media platforms, supported URL formats, and available media types on SocialVideoDownloader.',
 }
 

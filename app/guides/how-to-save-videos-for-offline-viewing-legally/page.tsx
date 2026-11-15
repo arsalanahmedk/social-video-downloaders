@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { GuideLayout } from '../guide-layout'
 
 export const metadata: Metadata = {
-  title: 'How to Save Videos for Offline Viewing Legally | SocialVideoDownloader',
+  title: 'How to Save Videos for Offline Viewing Legally',
   description:
     'What you can and cannot legally download: your own videos, public posts with permission, fair use, creator credit, and the content you must never download — private, DRM-protected and paid videos.',
   alternates: { canonical: '/guides/how-to-save-videos-for-offline-viewing-legally' },

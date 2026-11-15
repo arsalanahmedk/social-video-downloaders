@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'LinkedIn Video Downloader | Professional HD Videos | SocialVideoDownloader',
+  title: 'LinkedIn Video Downloader | Professional HD Videos',
   description: 'Download public LinkedIn videos, keynote presentations, and business media in 1080p Full HD MP4.',
 }
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'YouTube Thumbnail Downloader | MaxRes 4K & HD JPG | SocialVideoDownloader',
+  title: 'YouTube Thumbnail Downloader | MaxRes 4K & HD JPG',
   description: 'Download original full-resolution YouTube video and Shorts cover thumbnails in Maximum Resolution (1080p / 4K).',
 }
 

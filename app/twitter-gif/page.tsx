@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'X / Twitter GIF Downloader | Convert Animated GIFs to MP4 | SocialVideoDownloader',
+  title: 'X / Twitter GIF Downloader | Convert Animated GIFs to MP4',
   description: 'Download animated GIFs from X (Twitter) posts as looping high-definition MP4 videos or GIF files.',
 }
 

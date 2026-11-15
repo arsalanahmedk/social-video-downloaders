@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'YouTube Shorts Downloader | 1080p Vertical Video | SocialVideoDownloader',
+  title: 'YouTube Shorts Downloader | 1080p Vertical Video',
   description: 'Download public YouTube Shorts in Full HD MP4 or extract audio track as MP3. Fast, free, and no software required.',
 }
 

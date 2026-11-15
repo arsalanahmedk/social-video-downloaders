@@ -6,7 +6,7 @@ import { HelpCircle, ChevronRight, ShieldCheck, ArrowRight, Sparkles } from 'luc
 import Script from 'next/script'
 
 export const metadata: Metadata = {
-  title: 'Frequently Asked Questions (FAQ) | SocialVideoDownloader',
+  title: 'Frequently Asked Questions (FAQ)',
   description: 'Find clear answers to common questions about downloading social media videos, quality formats, privacy, and mobile usage.',
 }
 

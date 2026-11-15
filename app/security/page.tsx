@@ -4,7 +4,7 @@ import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { ShieldCheck, Lock, AlertTriangle, CheckCircle2 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Security Architecture & SSRF Guardrails | SocialVideoDownloader',
+  title: 'Security Architecture & SSRF Guardrails',
   description: 'Understand the security principles, SSRF protections, and defensive safeguards built into SocialVideoDownloader.',
 }
 

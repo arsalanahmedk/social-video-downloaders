@@ -5,7 +5,7 @@ import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { HelpCircle, MessageSquare, ArrowRight, ShieldCheck, Zap, AlertCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Help Center & Support | SocialVideoDownloader',
+  title: 'Help Center & Support',
   description: 'Troubleshoot common issues, find answers to frequently asked questions, or contact the SocialVideoDownloader team.',
 }
 

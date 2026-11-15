@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Universal Thumbnail Grabber | High-Res Video Covers | SocialVideoDownloader',
+  title: 'Universal Thumbnail Grabber | High-Res Video Covers',
   description: 'Download full-resolution video cover posters and thumbnails from YouTube, TikTok, Facebook, and Instagram.',
 }
 

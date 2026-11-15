@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Instagram Stories Downloader | Public Story Highlights | SocialVideoDownloader',
+  title: 'Instagram Stories Downloader | Public Story Highlights',
   description: 'Save public Instagram stories and profile story highlights easily in high resolution MP4 or JPG.',
 }
 

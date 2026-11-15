@@ -6,7 +6,7 @@ import { NeurexFooter } from '@/components/neurex/neurex-footer'
 import { Sparkles, ShieldCheck, Zap, Download, Layers, CheckCircle2, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'How It Works | SocialVideoDownloader',
+  title: 'How It Works',
   description: 'Understand how SocialVideoDownloader resolves and extracts publicly accessible social media content with permission-first compliance.',
 }
 

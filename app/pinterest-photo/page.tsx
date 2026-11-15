@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'Pinterest Image & Photo Downloader | Original Full-Res JPG | SocialVideoDownloader',
+  title: 'Pinterest Image & Photo Downloader | Original Full-Res JPG',
   description: 'Download original full-resolution Pinterest image pins, wallpapers, and aesthetic photos in maximum quality.',
 }
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SpecializedToolPage, ToolPageConfig } from '@/components/downloader/specialized-tool-page'
 
 export const metadata: Metadata = {
-  title: 'YouTube to MP3 Converter | High Quality 320kbps Audio | SocialVideoDownloader',
+  title: 'YouTube to MP3 Converter | High Quality 320kbps Audio',
   description: 'Convert and download public YouTube videos and Shorts to 320kbps MP3 audio tracks. Fast, secure, and free.',
 }
 

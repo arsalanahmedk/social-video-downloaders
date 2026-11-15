@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ platform:
   if (!platform) return {}
 
   return {
-    title: `${platform.name} Downloader | High Quality Public Media | SocialVideoDownloader`,
+    title: `${platform.name} Downloader | High Quality Public Media`,
     description: `Download public ${platform.name} videos, reels, photos, and audio in the quality the platform provides. Free, and no sign-up needed.`,
     alternates: {
       canonical: `/${platform.id}`
