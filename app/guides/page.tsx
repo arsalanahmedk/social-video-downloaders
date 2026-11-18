@@ -23,6 +23,16 @@ const GUIDE_DESCRIPTIONS: Record<string, string> = {
     'Download a public Facebook video or Reel as an MP4 — and why private groups, friends-only videos and stories cannot, and should not, be downloaded.',
   'how-to-save-videos-for-offline-viewing-legally':
     'What you may save, what you must not, fair use in plain language, and how to credit a creator properly. Read this one first if you plan to repost.',
+  'how-to-download-x-twitter-videos':
+    'Save a public X video or GIF as an MP4 on phone or desktop — plus protected accounts, deleted posts, and why a live broadcast cannot be downloaded yet.',
+  'how-to-download-pinterest-videos':
+    'Save a public video Pin as an MP4, how idea Pins differ from ordinary video Pins, and why private boards and removed Pins cannot be downloaded.',
+  'how-to-extract-audio-from-videos':
+    'Save just the sound from a public video as an MP3 — smaller files, bitrate explained, and what to do with lectures, podcasts and ringtones.',
+  'how-to-download-videos-on-android':
+    'Download public videos on Android with Chrome and no app install: copy the link, save to Downloads, find the file, and keep your storage under control.',
+  'how-to-download-videos-safely':
+    'Spot fake download buttons and pop-ups, why never to install random downloader apps, and how to check a file before you open it.',
 }
 
 export default function GuidesIndexPage() {

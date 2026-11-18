@@ -10,6 +10,11 @@ export const GUIDE_LINKS = [
   { slug: 'how-to-download-youtube-shorts', title: 'How to Download YouTube Shorts' },
   { slug: 'how-to-download-facebook-videos', title: 'How to Download Facebook Videos' },
   { slug: 'how-to-save-videos-for-offline-viewing-legally', title: 'How to Save Videos for Offline Viewing Legally' },
+  { slug: 'how-to-download-x-twitter-videos', title: 'How to Download X (Twitter) Videos' },
+  { slug: 'how-to-download-pinterest-videos', title: 'How to Download Pinterest Videos' },
+  { slug: 'how-to-extract-audio-from-videos', title: 'How to Extract Audio from Videos (MP3)' },
+  { slug: 'how-to-download-videos-on-android', title: 'How to Download Videos on Android' },
+  { slug: 'how-to-download-videos-safely', title: 'How to Download Videos Safely' },
 ]
 
 export function GuideLayout({

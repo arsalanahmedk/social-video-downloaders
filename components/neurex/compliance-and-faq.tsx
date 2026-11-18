@@ -18,6 +18,10 @@ const FAQ_ITEMS = [
     a: 'Where the source provides a separate audio stream, you can save it as MP3 or AAC for editing or offline listening.'
   },
   {
+    q: 'Is it legal to download videos with this tool?',
+    a: 'It depends on what you download and what you do with it. Saving a video you made yourself, or a public video you have permission to keep, for personal offline use is generally fine. Downloading someone else’s video to re-upload it as your own, or to sell it, is not — that is the creator’s work, and re-uploading it can lead to copyright strikes or takedowns. If you want to reuse a clip, ask the creator first and credit them. Our guide on saving videos for offline viewing legally explains this in full.'
+  },
+  {
     q: 'Do you store or log my downloaded files?',
     a: 'No. Files are streamed directly to your browser. We do not store your downloaded files on our servers.'
   },
