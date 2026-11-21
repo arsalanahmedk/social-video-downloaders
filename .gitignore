@@ -18,3 +18,6 @@ node_modules/
 # yt-dlp account cookies — a live login session, never commit
 cookies.txt
 *.cookies.txt
+
+# Generated at build time by scripts/make-favicon.mjs (binary; see the script)
+public/favicon.ico

@@ -7,6 +7,24 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: ['/api/', '/_next/', '/download/']
+      },
+      // AI search crawlers are explicitly allowed — the "allow ChatGPT
+      // Search to crawl your site" step. They are not blocked by the '*'
+      // rule, but an explicit allow makes it certain no default-deny
+      // affects them, while /api/, /_next/ and /download/ stay closed.
+      {
+        userAgent: [
+          'GPTBot',
+          'OAI-SearchBot',
+          'ChatGPT-User',
+          'ClaudeBot',
+          'anthropic-ai',
+          'PerplexityBot',
+          'Google-Extended',
+          'CCBot'
+        ],
+        allow: '/',
+        disallow: ['/api/', '/_next/', '/download/']
       }
     ],
     sitemap: 'https://www.socialvideodownloader.online/sitemap.xml',
