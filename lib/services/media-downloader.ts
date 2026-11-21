@@ -225,9 +225,17 @@ async function runDirectImageJob(
         const fetchValidation = await validatePublicNetworkUrl(fetchUrl, { httpsOnly: true })
         if (!fetchValidation.valid) { reject(new Error(fetchValidation.message)); return }
         const proto = fetchUrl.startsWith('https') ? https : http
+        // Facebook's lookaside CDN serves a 388-byte JS-redirect stub to
+        // generic user-agents and the real image only to its crawler UA —
+        // without this, Facebook photo downloads fail validation as "too
+        // small" even though the resolve found the right URL.
+        const fetchHost = new URL(fetchUrl).hostname
+        const userAgent = /(^|\.)fbsbx\.com$|(^|\.)fbcdn\.net$/.test(fetchHost)
+          ? 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+          : 'Mozilla/5.0 (compatible; SocialVideoDownloader/1.0)'
         const req = proto.get(fetchUrl, {
           headers: {
-            'User-Agent': 'Mozilla/5.0 (compatible; SocialVideoDownloader/1.0)',
+            'User-Agent': userAgent,
             Accept: acceptHeader
           },
           timeout: fetchTimeoutMs

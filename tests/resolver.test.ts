@@ -323,6 +323,30 @@ describe('resolvePublicMedia - photo posts', () => {
     expect(media.formats[0].directUrl).toBe('https://pbs.twimg.com/media/HS6CdTYWkAAp0e1.jpg')
   })
 
+  it('scrapes the tweet page for photos when yt-dlp fails outright on an X photo post', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockDumpFailure('ERROR: [twitter] 2102761519985332442: No video could be found in this tweet')
+    mockHttpsResponse(
+      '<html><head>' +
+        '<meta property="og:title" content="NASA (@NASA) on X" />' +
+        '<meta property="og:image" content="https://jf.x.com/images/post/2102761519985332442.png" />' +
+        '</head><body>' +
+        '<img src="https://pbs.twimg.com/media/HS6CdTYWkAAp0e1.jpg" />' +
+        '</body></html>'
+    )
+
+    const media = await resolvePublicMedia(mustValidate('https://x.com/NASA/status/2102761519985332442'))
+    expect(media.mediaType).toBe('image')
+    expect(media.title).toBe('NASA (@NASA) on X')
+    expect(media.formats.length).toBe(2)
+    for (const format of media.formats) {
+      expect(format.directUrl).toContain('pbs.twimg.com/media/')
+      expect(format.directUrl).not.toContain('jf.x.com')
+    }
+
+    errorSpy.mockRestore()
+  })
+
   it('resolves a TikTok photo post through the tikwm fallback without yt-dlp', async () => {
     // The impersonation helper fails (e.g. curl_cffi missing), so the plain
     // tikwm request answers instead. yt-dlp itself must never run.

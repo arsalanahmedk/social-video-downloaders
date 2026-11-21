@@ -596,7 +596,8 @@ function extractFailureReason(detail: string): string {
  */
 async function extractXPhotoMedia(
   pageUrl: string
-): Promise<{ url: string; width: number; height: number }[]> {
+): Promise<{ photos: { url: string; width: number; height: number }[]; title: string }> {
+  const empty = { photos: [], title: '' }
   return new Promise((resolve) => {
     let req: ReturnType<typeof https.get>
     try {
@@ -613,7 +614,7 @@ async function extractXPhotoMedia(
         },
         (res) => {
           if (!res.statusCode || res.statusCode < 200 || res.statusCode >= 300) {
-            resolve([])
+            resolve(empty)
             return
           }
           const chunks: Buffer[] = []
@@ -633,10 +634,12 @@ async function extractXPhotoMedia(
               seen.add(m[1])
               photos.push({ url: `https://pbs.twimg.com/media/${m[1]}.jpg`, width: 0, height: 0 })
             }
+            const titleMatch = /<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']*)["']/i.exec(html)
+            const title = titleMatch ? decodeHtmlEntities(titleMatch[1]).trim() : ''
             if (photos.length > 0) {
               console.log(`[resolver] X page scrape found ${photos.length} photo(s) for ${pageUrl}`)
             }
-            resolve(photos)
+            resolve({ photos, title })
           }
           res.on('data', (c: Buffer) => {
             chunks.push(c)
@@ -647,21 +650,21 @@ async function extractXPhotoMedia(
             }
           })
           res.on('end', finish)
-          res.on('error', () => resolve([]))
+          res.on('error', () => resolve(empty))
         }
       )
     } catch {
-      resolve([])
+      resolve(empty)
       return
     }
     if (!req || typeof req.on !== 'function') {
-      resolve([])
+      resolve(empty)
       return
     }
-    req.on('error', () => resolve([]))
+    req.on('error', () => resolve(empty))
     req.on('timeout', () => {
       req.destroy()
-      resolve([])
+      resolve(empty)
     })
   })
 }
@@ -784,7 +787,7 @@ async function buildDynamicFormats(
     if (platform.id === 'twitter') {
       let photoUrls = extractPhotoUrlsFromFormats(realInfo)
       if (photoUrls.length === 0) {
-        photoUrls = await extractXPhotoMedia(targetUrlStr)
+        photoUrls = (await extractXPhotoMedia(targetUrlStr)).photos
       }
       if (photoUrls.length > 0) {
         return buildPhotoFormats(platform, id, title, targetUrlStr, photoUrls)
@@ -1076,6 +1079,33 @@ export async function resolvePublicMedia(validation: Extract<PublicUrlResult, { 
   if (realInfo && typeof realInfo === 'object' && (realInfo as OgFallbackSignal).__ogFallback) {
     const fallback = realInfo as OgFallbackSignal
     console.log(`[resolver] OG fallback for ${targetUrlStr}`)
+
+    // X/Twitter: yt-dlp fails outright for photo tweets from datacenter IPs
+    // ("No video could be found in this tweet"), so this branch is reached
+    // before the formats branch ever runs. Scrape the real photos from the
+    // tweet page first; only if the page has none, fall through to OG (whose
+    // og:image is just the tweet card).
+    if (platform.id === 'twitter') {
+      const xPhotos = await extractXPhotoMedia(targetUrlStr)
+      if (xPhotos.photos.length > 0) {
+        const xTitle = xPhotos.title || 'X Photo'
+        return {
+          id,
+          platformId: platform.id,
+          platformName: platform.name,
+          accentColor: platform.accentColor,
+          title: xTitle,
+          author: platform.name,
+          aspectRatio: '1:1',
+          mediaType: 'image',
+          thumbnailUrl: xPhotos.photos[0].url,
+          originalUrl: targetUrlStr,
+          resolvedAt: new Date().toISOString(),
+          formats: buildPhotoFormats(platform, id, xTitle, targetUrlStr, xPhotos.photos)
+        }
+      }
+    }
+
     const og = await extractOpenGraphMedia(targetUrlStr)
     if (!og || !og.imageUrl || og.hasVideo) {
       throw new MediaExtractionError('UNAVAILABLE', fallback.reason)
