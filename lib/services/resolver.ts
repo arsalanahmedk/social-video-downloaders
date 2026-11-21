@@ -509,7 +509,7 @@ async function fetchTikwmViaImpersonation(pageUrl: string): Promise<TikTokPhotoD
  * may not be blocked. Returns null on any failure; the caller then tries
  * the plain direct request and finally yt-dlp.
  */
-const TIKWM_PROXY_URL = 'https://socialvideodownloader.online/api/v1/tikwm-proxy'
+const TIKWM_PROXY_URL = 'https://www.socialvideodownloader.online/api/v1/tikwm-proxy'
 
 async function fetchTikwmViaProxy(pageUrl: string): Promise<TikTokPhotoData | null> {
   const proxyUrl = `${TIKWM_PROXY_URL}?url=${encodeURIComponent(pageUrl)}`
