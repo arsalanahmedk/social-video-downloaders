@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Check, ShieldCheck, Zap, Sparkles } from 'lucide-react'
 
@@ -61,9 +62,15 @@ export function FeatureTabs() {
             className="lg:col-span-6 flex justify-center"
           >
             <div className="relative w-full max-w-lg">
-              <img
+              {/* Served via next/image so Vercel/Render deliver a right-sized
+                  WebP/AVIF instead of the 701 KB source (PageSpeed's biggest
+                  "improve image delivery" item). Display size is unchanged. */}
+              <Image
                 src="/images/feature_tabs_creator.jpg"
                 alt="Digital Media Creator and Artist"
+                width={896}
+                height={1200}
+                sizes="(max-width: 1024px) 100vw, 512px"
                 className="w-full h-[420px] sm:h-[500px] object-cover rounded-[32px] shadow-2xl filter contrast-105"
               />
               <div className="absolute inset-0 rounded-[32px] ring-1 ring-black/5 pointer-events-none" />

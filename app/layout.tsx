@@ -90,6 +90,26 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3329860361873436"
           crossOrigin="anonymous"
         />
+        {/* Google Analytics 4 (property "socialvideodownloader.online", stream
+            ID 16388009984). Production only, so local dev never pollutes
+            analytics. The measurement ID is public by design (page source). */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-5LVLDHHPKC"
+            />
+            <script
+              id="google-analytics"
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-5LVLDHHPKC');`
+              }}
+            />
+          </>
+        )}
       </head>
       <body
         style={{
