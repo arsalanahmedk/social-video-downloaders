@@ -4,6 +4,7 @@ import { execFile } from 'child_process'
 import { promisify } from 'util'
 import https from 'https'
 import http from 'http'
+import path from 'path'
 
 const execFileAsync = promisify(execFile)
 
@@ -155,6 +156,18 @@ async function extractYtDlpMetadata(targetUrl: string, platformId?: string): Pro
     // video — see the og:video guard there).
     if (/login|sign in|cookies|account|private/i.test(detail)) {
       console.log(`[resolver] yt-dlp hit a login wall — will try OG fallback for ${targetUrl}`)
+      return {
+        __ogFallback: true,
+        reason: extractFailureReason(detail)
+      } satisfies OgFallbackSignal
+    }
+
+    // Facebook's response flips between a login error and a "not found"
+    // error for the same public photo post. A genuinely deleted post's
+    // page carries no og:image, so the OG branch still keeps the original
+    // error in that case — the scrape is the arbiter.
+    if (platformId === 'facebook' && /does not exist|404|not found/i.test(detail)) {
+      console.log(`[resolver] yt-dlp says not found — will try OG fallback for ${targetUrl}`)
       return {
         __ogFallback: true,
         reason: extractFailureReason(detail)
@@ -449,7 +462,44 @@ type TikTokPhotoData = {
  * the same source other TikTok downloaders use. Only used for /photo/
  * links; TikTok videos keep the yt-dlp path.
  */
+/**
+ * Calls the tikwm API through a Chrome-impersonating request (curl_cffi,
+ * scripts/tikwm_fetch.py — the same technique yt-dlp uses with
+ * --impersonate chrome). tikwm answers plain Node/fetch requests with
+ * HTTP 403 from this server's datacenter IP, while a real browser
+ * fingerprint gets through. Returns null on any failure; the caller then
+ * tries the plain request and finally yt-dlp.
+ */
+async function fetchTikwmViaImpersonation(pageUrl: string): Promise<TikTokPhotoData | null> {
+  const scriptPath = path.join(process.cwd(), 'scripts', 'tikwm_fetch.py')
+  try {
+    const { stdout } = await execFileAsync(PYTHON_BIN, [scriptPath, pageUrl], { timeout: 25000 })
+    const data = JSON.parse(stdout)
+    const images = Array.isArray(data?.data?.images)
+      ? data.data.images.filter((u: unknown) => typeof u === 'string' && (u as string).startsWith('http'))
+      : []
+    if (data?.code !== 0 || images.length === 0) {
+      console.log(`[resolver] tikwm impersonation returned no images (code=${data?.code}) for ${pageUrl}`)
+      return null
+    }
+    console.log(`[resolver] tikwm impersonation OK (${images.length} images) for ${pageUrl}`)
+    return {
+      imageUrls: images,
+      title: (typeof data.data.title === 'string' && data.data.title.trim()) || 'TikTok Photo Post',
+      author:
+        (typeof data.data.author?.nickname === 'string' && data.data.author.nickname) || 'TikTok'
+    }
+  } catch (err) {
+    console.log(
+      `[resolver] tikwm impersonation failed for ${pageUrl}: ${err instanceof Error ? err.message : String(err)}`
+    )
+    return null
+  }
+}
+
 async function extractTikTokPhotoMedia(pageUrl: string): Promise<TikTokPhotoData | null> {
+  const viaImpersonation = await fetchTikwmViaImpersonation(pageUrl)
+  if (viaImpersonation) return viaImpersonation
   const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(pageUrl)}`
   console.log(`[resolver] tikwm lookup for ${pageUrl}`)
   return new Promise((resolve) => {
@@ -537,6 +587,86 @@ function extractFailureReason(detail: string): string {
 }
 
 /**
+ * X/Twitter photo posts: from datacenter IPs yt-dlp returns the tweet's
+ * metadata but no media formats, so the real photos never reach the
+ * formats branch below. The tweet page itself still carries the photo
+ * URLs (pbs.twimg.com/media/...) in its HTML, so fetch it and collect
+ * them. Only /media/ URLs are collected — avatars and banners live under
+ * /profile_images/ and /profile_banners/ and are never picked up.
+ */
+async function extractXPhotoMedia(
+  pageUrl: string
+): Promise<{ url: string; width: number; height: number }[]> {
+  return new Promise((resolve) => {
+    let req: ReturnType<typeof https.get>
+    try {
+      req = https.get(
+        pageUrl,
+        {
+          headers: {
+            'User-Agent':
+              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+            Accept: 'text/html,application/xhtml+xml,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9'
+          },
+          timeout: 15000
+        },
+        (res) => {
+          if (!res.statusCode || res.statusCode < 200 || res.statusCode >= 300) {
+            resolve([])
+            return
+          }
+          const chunks: Buffer[] = []
+          let totalBytes = 0
+          let done = false
+          const finish = () => {
+            if (done) return
+            done = true
+            const html = Buffer.concat(chunks).toString('utf8')
+            const seen = new Set<string>()
+            const photos: { url: string; width: number; height: number }[] = []
+            const re = /pbs\.twimg\.com\/media\/([A-Za-z0-9_-]+)(?:\.(?:jpg|jpeg|png|webp))?/g
+            let m: RegExpExecArray | null
+            // eslint-disable-next-line no-cond-assign
+            while ((m = re.exec(html)) !== null) {
+              if (seen.has(m[1])) continue
+              seen.add(m[1])
+              photos.push({ url: `https://pbs.twimg.com/media/${m[1]}.jpg`, width: 0, height: 0 })
+            }
+            if (photos.length > 0) {
+              console.log(`[resolver] X page scrape found ${photos.length} photo(s) for ${pageUrl}`)
+            }
+            resolve(photos)
+          }
+          res.on('data', (c: Buffer) => {
+            chunks.push(c)
+            totalBytes += c.length
+            if (totalBytes > 2 * 1024 * 1024) {
+              req.destroy()
+              finish()
+            }
+          })
+          res.on('end', finish)
+          res.on('error', () => resolve([]))
+        }
+      )
+    } catch {
+      resolve([])
+      return
+    }
+    if (!req || typeof req.on !== 'function') {
+      resolve([])
+      return
+    }
+    req.on('error', () => resolve([]))
+    req.on('timeout', () => {
+      req.destroy()
+      resolve([])
+    })
+  })
+}
+
+/**
  * For X/Twitter photo posts yt-dlp puts the actual photos in `formats`
  * (pbs.twimg.com URLs) while the top-level `url`/`thumbnail` is the
  * 1200x630 tweet card image (jf.x.com) — downloading that gives the user a
@@ -563,7 +693,73 @@ function extractPhotoUrlsFromFormats(realInfo: any): { url: string; width: numbe
   return Array.from(byPhoto.values()).sort((a, b) => b.width * b.height - a.width * a.height)
 }
 
-function buildDynamicFormats(
+/**
+ * Builds download formats from a list of real photo URLs (X/Twitter).
+ * One photo → JPG + PNG formats; several → one JPG format per photo.
+ */
+function buildPhotoFormats(
+  platform: any,
+  id: string,
+  title: string,
+  targetUrlStr: string,
+  photoUrls: { url: string; width: number; height: number }[]
+) {
+  if (photoUrls.length === 1) {
+    const photo = photoUrls[0]
+    const dims = photo.width && photo.height ? `${photo.width}x${photo.height}` : 'Original'
+    return ['jpg', 'png'].map((imgExt) => {
+      const params = new URLSearchParams({
+        platform: platform.id,
+        id,
+        formatId: `photo-${imgExt}`,
+        ext: imgExt,
+        title,
+        type: 'image',
+        quality: dims,
+        url: targetUrlStr,
+        directUrl: photo.url
+      })
+      return {
+        id: `photo-${imgExt}`,
+        label: `Download Photo (${imgExt.toUpperCase()} • ${dims})`,
+        quality: dims,
+        ext: imgExt,
+        size: 'Original size',
+        type: 'image' as const,
+        downloadUrl: `/api/v1/download?${params.toString()}`,
+        directUrl: photo.url
+      }
+    })
+  }
+  return photoUrls.map((photo, idx) => {
+    const slideNum = idx + 1
+    const total = photoUrls.length
+    const resLabel = photo.width && photo.height ? `${photo.width}x${photo.height}` : 'Original'
+    const params = new URLSearchParams({
+      platform: platform.id,
+      id: `${id}_slide_${slideNum}`,
+      formatId: `photo-slide-${slideNum}`,
+      ext: 'jpg',
+      title: `${title} - Photo ${slideNum}`,
+      type: 'image',
+      quality: resLabel,
+      url: targetUrlStr,
+      directUrl: photo.url
+    })
+    return {
+      id: `photo-slide-${slideNum}`,
+      label: `Photo ${slideNum} of ${total} (${resLabel})`,
+      quality: resLabel,
+      ext: 'jpg',
+      size: 'Original size',
+      type: 'image' as const,
+      downloadUrl: `/api/v1/download?${params.toString()}`,
+      directUrl: photo.url
+    }
+  })
+}
+
+async function buildDynamicFormats(
   realInfo: any,
   platform: any,
   id: string,
@@ -582,64 +778,16 @@ function buildDynamicFormats(
 
   if (isImage) {
     // X/Twitter: the top-level url/thumbnail is the tweet card image, not
-    // the photo — use the real photo URLs from formats instead. One format
-    // per photo, mirroring the carousel branch.
+    // the photo — use the real photo URLs from formats instead. From
+    // datacenter IPs yt-dlp often returns no formats at all, so when the
+    // formats are empty, scrape the photo URLs from the tweet page itself.
     if (platform.id === 'twitter') {
-      const photoUrls = extractPhotoUrlsFromFormats(realInfo)
+      let photoUrls = extractPhotoUrlsFromFormats(realInfo)
+      if (photoUrls.length === 0) {
+        photoUrls = await extractXPhotoMedia(targetUrlStr)
+      }
       if (photoUrls.length > 0) {
-        if (photoUrls.length === 1) {
-          const photo = photoUrls[0]
-          const dims = photo.width && photo.height ? `${photo.width}x${photo.height}` : 'Original'
-          return ['jpg', 'png'].map((imgExt) => {
-            const params = new URLSearchParams({
-              platform: platform.id,
-              id,
-              formatId: `photo-${imgExt}`,
-              ext: imgExt,
-              title,
-              type: 'image',
-              quality: dims,
-              url: targetUrlStr,
-              directUrl: photo.url
-            })
-            return {
-              id: `photo-${imgExt}`,
-              label: `Download Photo (${imgExt.toUpperCase()} • ${dims})`,
-              quality: dims,
-              ext: imgExt,
-              size: 'Original size',
-              type: 'image' as const,
-              downloadUrl: `/api/v1/download?${params.toString()}`,
-              directUrl: photo.url
-            }
-          })
-        }
-        return photoUrls.map((photo, idx) => {
-          const slideNum = idx + 1
-          const total = photoUrls.length
-          const resLabel = photo.width && photo.height ? `${photo.width}x${photo.height}` : 'Original'
-          const params = new URLSearchParams({
-            platform: platform.id,
-            id: `${id}_slide_${slideNum}`,
-            formatId: `photo-slide-${slideNum}`,
-            ext: 'jpg',
-            title: `${title} - Photo ${slideNum}`,
-            type: 'image',
-            quality: resLabel,
-            url: targetUrlStr,
-            directUrl: photo.url
-          })
-          return {
-            id: `photo-slide-${slideNum}`,
-            label: `Photo ${slideNum} of ${total} (${resLabel})`,
-            quality: resLabel,
-            ext: 'jpg',
-            size: 'Original size',
-            type: 'image' as const,
-            downloadUrl: `/api/v1/download?${params.toString()}`,
-            directUrl: photo.url
-          }
-        })
+        return buildPhotoFormats(platform, id, title, targetUrlStr, photoUrls)
       }
     }
 
@@ -1047,7 +1195,7 @@ export async function resolvePublicMedia(validation: Extract<PublicUrlResult, { 
     detectMediaType(realInfo) || mediaInfo.mediaType
 
   // Dynamically inspect available formats from extractor rather than hard-coded assumptions
-  const formats = buildDynamicFormats(realInfo, platform, id, title, targetUrlStr)
+  const formats = await buildDynamicFormats(realInfo, platform, id, title, targetUrlStr)
 
   return {
     id,

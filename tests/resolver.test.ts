@@ -276,7 +276,7 @@ describe('resolvePublicMedia - photo posts', () => {
     }
   })
 
-  it('falls back to the card image for an X photo post when formats carry no photo', async () => {
+  it('falls back to the card image for an X photo post when formats carry no photo and the tweet page has none either', async () => {
     mockDumpJson({
       title: 'NASA (@NASA) on X',
       uploader: 'NASA',
@@ -287,13 +287,51 @@ describe('resolvePublicMedia - photo posts', () => {
       thumbnail: 'https://jf.x.com/images/post/2102761519985332442.png',
       formats: []
     })
+    mockHttpsResponse('<html><head><title>Nothing here</title></head><body></body></html>')
 
     const media = await resolvePublicMedia(mustValidate('https://x.com/NASA/status/2102761519985332442'))
     expect(media.mediaType).toBe('image')
     expect(media.formats[0].directUrl).toBe('https://jf.x.com/images/post/2102761519985332442.png')
   })
 
+  it('scrapes the real pbs.twimg.com photos from the tweet page when formats are empty', async () => {
+    mockDumpJson({
+      title: 'NASA (@NASA) on X',
+      uploader: 'NASA',
+      ext: 'jpg',
+      vcodec: 'none',
+      acodec: 'none',
+      url: 'https://jf.x.com/images/post/2102761519985332442.png',
+      thumbnail: 'https://jf.x.com/images/post/2102761519985332442.png',
+      formats: []
+    })
+    mockHttpsResponse(
+      '<html><body>' +
+        '<img src="https://pbs.twimg.com/media/HS6CdTYWkAAp0e1.jpg" />' +
+        '<img src="https://pbs.twimg.com/media/HS6C9jiXgAERD_p?format=webp&amp;name=large" />' +
+        '</body></html>'
+    )
+
+    const media = await resolvePublicMedia(mustValidate('https://x.com/NASA/status/2102761519985332442'))
+    expect(media.mediaType).toBe('image')
+    expect(media.formats.length).toBe(2)
+    for (const format of media.formats) {
+      expect(format.type).toBe('image')
+      expect(format.directUrl).toContain('pbs.twimg.com/media/')
+      expect(format.directUrl).not.toContain('jf.x.com')
+    }
+    expect(media.formats[0].directUrl).toBe('https://pbs.twimg.com/media/HS6CdTYWkAAp0e1.jpg')
+  })
+
   it('resolves a TikTok photo post through the tikwm fallback without yt-dlp', async () => {
+    // The impersonation helper fails (e.g. curl_cffi missing), so the plain
+    // tikwm request answers instead. yt-dlp itself must never run.
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    mockExecFile.mockImplementation(
+      (_bin: string, _args: string[], _options: unknown, callback: ExecCallback) => {
+        callback(new Error('spawn python ENOENT'), '', '')
+      }
+    )
     mockTikwm([
       'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/aaa~tplv-photomode-image.jpeg?dr=1',
       'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/bbb~tplv-photomode-image.jpeg?dr=1'
@@ -302,12 +340,56 @@ describe('resolvePublicMedia - photo posts', () => {
     const media = await resolvePublicMedia(
       mustValidate('https://www.tiktok.com/@nasa.sutherland/photo/7488448100236021038')
     )
-    expect(mockExecFile).not.toHaveBeenCalled()
+    const ytDlpCalls = mockExecFile.mock.calls.filter((call) =>
+      (call[1] as string[]).some((a) => a === 'yt_dlp')
+    )
+    expect(ytDlpCalls).toHaveLength(0)
     expect(media.mediaType).toBe('carousel')
     expect(media.author).toBe('Tester')
     expect(media.formats.length).toBe(2)
     expect(media.formats[0].directUrl).toContain('tiktokcdn-us.com')
     expect(media.formats[0].label).toBe('Photo 1 of 2 (Original)')
+
+    logSpy.mockRestore()
+  })
+
+  it('resolves a TikTok photo post through the impersonation helper without a plain tikwm request', async () => {
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    mockExecFile.mockImplementation(
+      (_bin: string, _args: string[], _options: unknown, callback: ExecCallback) => {
+        if ((_args as string[]).some((a) => typeof a === 'string' && a.includes('tikwm_fetch.py'))) {
+          callback(
+            null,
+            JSON.stringify({
+              code: 0,
+              msg: 'success',
+              data: {
+                title: 'Test photos',
+                author: { nickname: 'Tester' },
+                images: [
+                  'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/aaa~tplv-photomode-image.jpeg?dr=1',
+                  'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/bbb~tplv-photomode-image.jpeg?dr=1'
+                ]
+              }
+            }),
+            ''
+          )
+        } else {
+          callback(new Error('yt-dlp should not run'), '', '')
+        }
+      }
+    )
+
+    const media = await resolvePublicMedia(
+      mustValidate('https://www.tiktok.com/@nasa.sutherland/photo/7488448100236021038')
+    )
+    expect(mockHttpsGet).not.toHaveBeenCalled()
+    expect(media.mediaType).toBe('carousel')
+    expect(media.author).toBe('Tester')
+    expect(media.formats.length).toBe(2)
+    expect(media.formats[0].directUrl).toContain('tiktokcdn-us.com')
+
+    logSpy.mockRestore()
   })
 
   it('falls through to yt-dlp when the TikTok photo API has no images', async () => {
@@ -360,6 +442,41 @@ describe('resolvePublicMedia - photo posts', () => {
         mustValidate('https://www.facebook.com/NASAKennedy/posts/pfbid02m1wqLU4pGQVNmwSLzdqchYvaDFN5tVfjDGxaxmT8ekkRR7M1wpnSZT7zYW5v6Rskl')
       )
     ).rejects.toMatchObject({ code: 'UNAVAILABLE', message: expect.stringContaining('login') })
+
+    errorSpy.mockRestore()
+  })
+
+  it('uses the OG photo for a Facebook photo post when yt-dlp says it does not exist', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockDumpFailure('ERROR: [facebook] 123: This post does not exist')
+    mockHttpsResponse(
+      '<html><head>' +
+        '<meta property="og:type" content="video.other" />' +
+        '<meta property="og:title" content="NASA&#039;s Kennedy Space Center" />' +
+        '<meta property="og:image" content="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1434243868366087" />' +
+        '</head></html>'
+    )
+
+    const media = await resolvePublicMedia(
+      mustValidate('https://www.facebook.com/NASAKennedy/posts/pfbid02m1wqLU4pGQVNmwSLzdqchYvaDFN5tVfjDGxaxmT8ekkRR7M1wpnSZT7zYW5v6Rskl')
+    )
+    expect(media.mediaType).toBe('image')
+    expect(media.formats[0].type).toBe('image')
+    expect(media.formats[0].directUrl).toContain('lookaside.fbsbx.com')
+
+    errorSpy.mockRestore()
+  })
+
+  it('keeps the not-found error when the OG page has no photo', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockDumpFailure('ERROR: [facebook] 123: This post does not exist')
+    mockHttpsResponse('<html><head><title>Content not available</title></head><body></body></html>')
+
+    await expect(
+      resolvePublicMedia(
+        mustValidate('https://www.facebook.com/NASAKennedy/posts/pfbid02m1wqLU4pGQVNmwSLzdqchYvaDFN5tVfjDGxaxmT8ekkRR7M1wpnSZT7zYW5v6Rskl')
+      )
+    ).rejects.toMatchObject({ code: 'UNAVAILABLE', message: expect.stringContaining('does not exist') })
 
     errorSpy.mockRestore()
   })
