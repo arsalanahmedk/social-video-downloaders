@@ -7,10 +7,12 @@ import http from 'http'
 
 const execFileAsync = promisify(execFile)
 
-// Sentinel returned by extractYtDlpMetadata when yt-dlp signals the post has
-// no downloadable video (e.g. Instagram image posts).  The caller should fall
-// back to Open Graph scraping instead of surfacing this as an error.
-const OG_FALLBACK_SENTINEL = '__OG_FALLBACK__'
+// Returned by extractYtDlpMetadata when yt-dlp signals the post has no
+// downloadable video (e.g. Instagram image posts) or cannot read the post
+// without a login (e.g. Facebook photo posts). The caller should fall back
+// to Open Graph scraping instead of surfacing this as an error. `reason` is
+// the message to show if the OG scrape cannot help either.
+type OgFallbackSignal = { __ogFallback: true; reason: string }
 
 /**
  * Raised when real metadata could not be extracted. Previously these failures
@@ -139,7 +141,24 @@ async function extractYtDlpMetadata(targetUrl: string, platformId?: string): Pro
     // post" when the post only contains photos.
     if (/no video in this post|no video|image.*only|only.*image/i.test(detail)) {
       console.log(`[resolver] yt-dlp says image-only post — will try OG fallback for ${targetUrl}`)
-      return OG_FALLBACK_SENTINEL
+      return {
+        __ogFallback: true,
+        reason:
+          'This post contains a photo but its image URL could not be read. The post may be private or restricted.'
+      } satisfies OgFallbackSignal
+    }
+
+    // Login-walled posts (notably Facebook photo posts) fail in yt-dlp with a
+    // login/cookies error, but the public page still carries an og:image that
+    // the OG fallback can use. Try that before giving up; the OG branch keeps
+    // the original login error when the page has no usable photo (or is a
+    // video — see the og:video guard there).
+    if (/login|sign in|cookies|account|private/i.test(detail)) {
+      console.log(`[resolver] yt-dlp hit a login wall — will try OG fallback for ${targetUrl}`)
+      return {
+        __ogFallback: true,
+        reason: extractFailureReason(detail)
+      } satisfies OgFallbackSignal
     }
 
     throw new MediaExtractionError(
@@ -171,6 +190,10 @@ type OGData = {
   description?: string
   siteName?: string
   items?: OGMediaItem[]
+  /** True when the page marks itself as a video (og:video). A video post's
+   *  og:image is only its poster frame, so the OG fallback must not present
+   *  it as a downloadable photo. */
+  hasVideo?: boolean
 }
 
 /**
@@ -367,13 +390,18 @@ async function extractOpenGraphMedia(pageUrl: string): Promise<OGData | null> {
 
           const primaryImageUrl = items.length > 0 ? items[0].url : tags['image']
 
+          // og:video (or og:video:url) means this is a video post — its
+          // og:image is only the poster frame, not a photo to download.
+          const hasVideo = /<meta[^>]+property=["']og:video(?::url)?["']/i.test(html)
+
           if (primaryImageUrl) {
             resolve({
               imageUrl: primaryImageUrl,
               title: tags['title'] || 'Photo',
               description: tags['description'],
               siteName: tags['site_name'],
-              items: items.length > 0 ? items : undefined
+              items: items.length > 0 ? items : undefined,
+              hasVideo
             })
             return
           }
@@ -402,6 +430,74 @@ async function extractOpenGraphMedia(pageUrl: string): Promise<OGData | null> {
 }
 
 
+// ---------------------------------------------------------------------------
+// TikTok photo-post fallback (tikwm) — for /photo/ links only
+// ---------------------------------------------------------------------------
+
+type TikTokPhotoData = {
+  imageUrls: string[]
+  title: string
+  author: string
+}
+
+/**
+ * TikTok photo-mode posts (/photo/ links) carry no video file: even the
+ * newest yt-dlp rejects the URL outright ("Unsupported URL"), and TikTok
+ * serves only a bot-check shell (no og:image, no embedded post data) to
+ * datacenter IPs, so neither yt-dlp nor page scraping can see the pictures.
+ * tikwm's free no-key API returns the post's image list (and the sound) —
+ * the same source other TikTok downloaders use. Only used for /photo/
+ * links; TikTok videos keep the yt-dlp path.
+ */
+async function extractTikTokPhotoMedia(pageUrl: string): Promise<TikTokPhotoData | null> {
+  const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(pageUrl)}`
+  return new Promise((resolve) => {
+    const req = https.get(
+      apiUrl,
+      {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; SocialVideoDownloader/1.0)',
+          Accept: 'application/json'
+        },
+        timeout: 15000
+      },
+      (res) => {
+        const chunks: Buffer[] = []
+        res.on('data', (c: Buffer) => chunks.push(c))
+        res.on('end', () => {
+          try {
+            const data = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+            const images = Array.isArray(data?.data?.images)
+              ? data.data.images.filter((u: unknown) => typeof u === 'string' && (u as string).startsWith('http'))
+              : []
+            if (data?.code !== 0 || images.length === 0) {
+              resolve(null)
+              return
+            }
+            resolve({
+              imageUrls: images,
+              title:
+                (typeof data.data.title === 'string' && data.data.title.trim()) ||
+                'TikTok Photo Post',
+              author:
+                (typeof data.data.author?.nickname === 'string' && data.data.author.nickname) ||
+                'TikTok'
+            })
+          } catch {
+            resolve(null)
+          }
+        })
+        res.on('error', () => resolve(null))
+      }
+    )
+    req.on('error', () => resolve(null))
+    req.on('timeout', () => {
+      req.destroy()
+      resolve(null)
+    })
+  })
+}
+
 /** Pulls a readable reason out of yt-dlp's stderr blob. */
 function extractFailureReason(detail: string): string {
   if (/login|sign in|cookies|account/i.test(detail)) {
@@ -428,6 +524,33 @@ function extractFailureReason(detail: string): string {
   return 'Could not read this post. It may be private, deleted, or restricted.'
 }
 
+/**
+ * For X/Twitter photo posts yt-dlp puts the actual photos in `formats`
+ * (pbs.twimg.com URLs) while the top-level `url`/`thumbnail` is the
+ * 1200x630 tweet card image (jf.x.com) — downloading that gives the user a
+ * preview card instead of the photo. Collect the real photo URLs from
+ * formats, deduplicated by photo (X serves the same photo at several sizes;
+ * keep the largest).
+ */
+function extractPhotoUrlsFromFormats(realInfo: any): { url: string; width: number; height: number }[] {
+  const rawFormats = Array.isArray(realInfo.formats) ? realInfo.formats : []
+  const byPhoto = new Map<string, { url: string; width: number; height: number }>()
+  for (const f of rawFormats) {
+    const ext = typeof f.ext === 'string' ? f.ext.toLowerCase() : ''
+    const fUrl = typeof f.url === 'string' ? f.url : ''
+    if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext) || !fUrl.startsWith('http')) continue
+    // Strip size suffixes (?name=large, :large) so variants of one photo collapse.
+    const key = fUrl.split('?')[0].replace(/:(small|medium|large|orig)$/i, '')
+    const width = Number(f.width) || 0
+    const height = Number(f.height) || 0
+    const prev = byPhoto.get(key)
+    if (!prev || width * height > prev.width * prev.height) {
+      byPhoto.set(key, { url: fUrl, width, height })
+    }
+  }
+  return Array.from(byPhoto.values()).sort((a, b) => b.width * b.height - a.width * a.height)
+}
+
 function buildDynamicFormats(
   realInfo: any,
   platform: any,
@@ -446,6 +569,68 @@ function buildDynamicFormats(
     (typeof realInfo.formats?.[0]?.url === 'string' ? realInfo.formats[0].url : '')
 
   if (isImage) {
+    // X/Twitter: the top-level url/thumbnail is the tweet card image, not
+    // the photo — use the real photo URLs from formats instead. One format
+    // per photo, mirroring the carousel branch.
+    if (platform.id === 'twitter') {
+      const photoUrls = extractPhotoUrlsFromFormats(realInfo)
+      if (photoUrls.length > 0) {
+        if (photoUrls.length === 1) {
+          const photo = photoUrls[0]
+          const dims = photo.width && photo.height ? `${photo.width}x${photo.height}` : 'Original'
+          return ['jpg', 'png'].map((imgExt) => {
+            const params = new URLSearchParams({
+              platform: platform.id,
+              id,
+              formatId: `photo-${imgExt}`,
+              ext: imgExt,
+              title,
+              type: 'image',
+              quality: dims,
+              url: targetUrlStr,
+              directUrl: photo.url
+            })
+            return {
+              id: `photo-${imgExt}`,
+              label: `Download Photo (${imgExt.toUpperCase()} • ${dims})`,
+              quality: dims,
+              ext: imgExt,
+              size: 'Original size',
+              type: 'image' as const,
+              downloadUrl: `/api/v1/download?${params.toString()}`,
+              directUrl: photo.url
+            }
+          })
+        }
+        return photoUrls.map((photo, idx) => {
+          const slideNum = idx + 1
+          const total = photoUrls.length
+          const resLabel = photo.width && photo.height ? `${photo.width}x${photo.height}` : 'Original'
+          const params = new URLSearchParams({
+            platform: platform.id,
+            id: `${id}_slide_${slideNum}`,
+            formatId: `photo-slide-${slideNum}`,
+            ext: 'jpg',
+            title: `${title} - Photo ${slideNum}`,
+            type: 'image',
+            quality: resLabel,
+            url: targetUrlStr,
+            directUrl: photo.url
+          })
+          return {
+            id: `photo-slide-${slideNum}`,
+            label: `Photo ${slideNum} of ${total} (${resLabel})`,
+            quality: resLabel,
+            ext: 'jpg',
+            size: 'Original size',
+            type: 'image' as const,
+            downloadUrl: `/api/v1/download?${params.toString()}`,
+            directUrl: photo.url
+          }
+        })
+      }
+    }
+
     const rawDimensions = realInfo.width && realInfo.height ? `${realInfo.width}x${realInfo.height}` : 'Original'
 
     const imageFormats = [
@@ -640,22 +825,99 @@ export async function resolvePublicMedia(validation: Extract<PublicUrlResult, { 
   const id = postId || Math.random().toString(36).substring(2, 9)
   const targetUrlStr = url.toString()
 
+  // ── TikTok photo-post fallback ─────────────────────────────────────────
+  // /photo/ links carry no video, so yt-dlp rejects them outright. Try the
+  // TikTok photo API first; on failure fall through to yt-dlp, which will
+  // report the usual error — no worse than before.
+  if (platform.id === 'tiktok' && /\/photo\//.test(url.pathname)) {
+    const tt = await extractTikTokPhotoMedia(targetUrlStr)
+    if (tt) {
+      const items = tt.imageUrls
+      const mediaType: 'image' | 'carousel' = items.length > 1 ? 'carousel' : 'image'
+      let formats: ResolvedMedia['formats']
+      if (items.length > 1) {
+        formats = items.map((imageUrl, idx) => {
+          const slideNum = idx + 1
+          const total = items.length
+          const params = new URLSearchParams({
+            platform: platform.id,
+            id: `${id}_slide_${slideNum}`,
+            formatId: `photo-slide-${slideNum}`,
+            ext: 'jpg',
+            title: `${tt.title} - Photo ${slideNum}`,
+            type: 'image',
+            quality: 'Original',
+            url: targetUrlStr,
+            directUrl: imageUrl
+          })
+          return {
+            id: `photo-slide-${slideNum}`,
+            label: `Photo ${slideNum} of ${total} (Original)`,
+            quality: 'Original',
+            ext: 'jpg',
+            size: 'Original size',
+            type: 'image' as const,
+            downloadUrl: `/api/v1/download?${params.toString()}`,
+            directUrl: imageUrl
+          }
+        })
+      } else {
+        formats = ['jpg', 'png'].map((imgExt) => {
+          const params = new URLSearchParams({
+            platform: platform.id,
+            id,
+            formatId: `photo-${imgExt}`,
+            ext: imgExt,
+            title: tt.title,
+            type: 'image',
+            quality: 'Original',
+            url: targetUrlStr,
+            directUrl: items[0]
+          })
+          return {
+            id: `photo-${imgExt}`,
+            label: `Download Photo (${imgExt.toUpperCase()} • Original)`,
+            quality: 'Original',
+            ext: imgExt,
+            size: 'Original size',
+            type: 'image' as const,
+            downloadUrl: `/api/v1/download?${params.toString()}`,
+            directUrl: items[0]
+          }
+        })
+      }
+      return {
+        id,
+        platformId: platform.id,
+        platformName: platform.name,
+        accentColor: platform.accentColor,
+        title: tt.title,
+        author: tt.author,
+        aspectRatio: '9:16',
+        mediaType,
+        thumbnailUrl: items[0],
+        originalUrl: targetUrlStr,
+        resolvedAt: new Date().toISOString(),
+        formats
+      }
+    }
+  }
+
   // Throws MediaExtractionError when the post genuinely cannot be read, so a
   // failed lookup is never presented as a successful resolve.
   const realInfo = await extractYtDlpMetadata(targetUrlStr, platform.id)
 
   // ── Open Graph fallback (image-only posts) ─────────────────────────────
-  // When yt-dlp signals there is no video (e.g. Instagram photo posts),
-  // scrape the Open Graph tags from the page to get the image URL and build
-  // a proper download card, instead of showing an error to the user.
-  if (realInfo === OG_FALLBACK_SENTINEL) {
+  // When yt-dlp signals there is no video (e.g. Instagram photo posts) or
+  // hits a login wall (e.g. Facebook photo posts), scrape the Open Graph
+  // tags from the page to get the image URL and build a proper download
+  // card, instead of showing an error to the user.
+  if (realInfo && typeof realInfo === 'object' && (realInfo as OgFallbackSignal).__ogFallback) {
+    const fallback = realInfo as OgFallbackSignal
     console.log(`[resolver] OG fallback for ${targetUrlStr}`)
     const og = await extractOpenGraphMedia(targetUrlStr)
-    if (!og || !og.imageUrl) {
-      throw new MediaExtractionError(
-        'UNAVAILABLE',
-        'This post contains a photo but its image URL could not be read. The post may be private or restricted.'
-      )
+    if (!og || !og.imageUrl || og.hasVideo) {
+      throw new MediaExtractionError('UNAVAILABLE', fallback.reason)
     }
 
     const title = og.title.replace(/\s*on Instagram:?\s*/i, '').trim() || 'Instagram Photo'

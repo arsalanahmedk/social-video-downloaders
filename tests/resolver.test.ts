@@ -29,6 +29,51 @@ jest.mock('child_process', () => {
   return { execFile, spawn: jest.fn() }
 })
 
+// Mock the https layer for the OG-scrape and tikwm fallbacks, which fetch
+// pages over https.get. The mock answers by URL: tikwm API calls get a
+// canned JSON payload, Facebook pages get canned OG HTML.
+const mockHttpsGet = jest.fn()
+
+jest.mock('https', () => {
+  const actual = jest.requireActual('https')
+  return { ...actual, get: mockHttpsGet }
+})
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { EventEmitter } = require('events')
+
+function mockHttpsResponse(body: string, statusCode = 200): void {
+  ;(mockHttpsGet as jest.Mock).mockImplementation(
+    (_url: string, _options: unknown, callback: (res: unknown) => void) => {
+      const res = new EventEmitter()
+      ;(res as any).statusCode = statusCode
+      ;(res as any).headers = {}
+      const req = new EventEmitter()
+      ;(req as any).destroy = jest.fn()
+      process.nextTick(() => {
+        callback(res)
+        res.emit('data', Buffer.from(body))
+        res.emit('end')
+      })
+      return req
+    }
+  )
+}
+
+function mockTikwm(images: string[]): void {
+  mockHttpsResponse(
+    JSON.stringify({
+      code: 0,
+      msg: 'success',
+      data: {
+        title: 'Test photos',
+        author: { nickname: 'Tester' },
+        images
+      }
+    })
+  )
+}
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { resolvePublicMedia, MediaExtractionError } = require('@/lib/services/resolver')
 
@@ -185,5 +230,137 @@ describe('resolvePublicMedia - real metadata path', () => {
     const options = mockExecFile.mock.calls[0][2] as { timeout?: number }
     // Real extraction measured ~14.7s; the old 12s cap silently killed it.
     expect(options.timeout).toBeGreaterThanOrEqual(30000)
+  })
+})
+
+describe('resolvePublicMedia - photo posts', () => {
+  beforeEach(() => {
+    mockExecFile.mockReset()
+    mockHttpsGet.mockReset()
+  })
+
+  it('uses the real pbs.twimg.com photos for an X photo post, not the tweet card image', async () => {
+    mockDumpJson({
+      title: 'NASA (@NASA) on X',
+      uploader: 'NASA',
+      ext: 'jpg',
+      vcodec: 'none',
+      acodec: 'none',
+      url: 'https://jf.x.com/images/post/2102761519985332442.png',
+      thumbnail: 'https://jf.x.com/images/post/2102761519985332442.png',
+      formats: [
+        {
+          format_id: '0',
+          ext: 'jpg',
+          width: 1080,
+          height: 1080,
+          url: 'https://pbs.twimg.com/media/HS6CdTYWkAAp0e1.jpg?name=orig'
+        },
+        {
+          format_id: '1',
+          ext: 'jpg',
+          width: 1080,
+          height: 720,
+          url: 'https://pbs.twimg.com/media/HS6CdTYWkAAp0e2.jpg?name=orig'
+        }
+      ]
+    })
+
+    const media = await resolvePublicMedia(mustValidate('https://x.com/NASA/status/2102761519985332442'))
+    expect(media.mediaType).toBe('image')
+    expect(media.formats.length).toBe(2)
+    for (const format of media.formats) {
+      expect(format.type).toBe('image')
+      expect(format.directUrl).toContain('pbs.twimg.com/media/')
+      expect(format.directUrl).not.toContain('jf.x.com')
+    }
+  })
+
+  it('falls back to the card image for an X photo post when formats carry no photo', async () => {
+    mockDumpJson({
+      title: 'NASA (@NASA) on X',
+      uploader: 'NASA',
+      ext: 'jpg',
+      vcodec: 'none',
+      acodec: 'none',
+      url: 'https://jf.x.com/images/post/2102761519985332442.png',
+      thumbnail: 'https://jf.x.com/images/post/2102761519985332442.png',
+      formats: []
+    })
+
+    const media = await resolvePublicMedia(mustValidate('https://x.com/NASA/status/2102761519985332442'))
+    expect(media.mediaType).toBe('image')
+    expect(media.formats[0].directUrl).toBe('https://jf.x.com/images/post/2102761519985332442.png')
+  })
+
+  it('resolves a TikTok photo post through the tikwm fallback without yt-dlp', async () => {
+    mockTikwm([
+      'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/aaa~tplv-photomode-image.jpeg?dr=1',
+      'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/bbb~tplv-photomode-image.jpeg?dr=1'
+    ])
+
+    const media = await resolvePublicMedia(
+      mustValidate('https://www.tiktok.com/@nasa.sutherland/photo/7488448100236021038')
+    )
+    expect(mockExecFile).not.toHaveBeenCalled()
+    expect(media.mediaType).toBe('carousel')
+    expect(media.author).toBe('Tester')
+    expect(media.formats.length).toBe(2)
+    expect(media.formats[0].directUrl).toContain('tiktokcdn-us.com')
+    expect(media.formats[0].label).toBe('Photo 1 of 2 (Original)')
+  })
+
+  it('falls through to yt-dlp when the TikTok photo API has no images', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockHttpsResponse(JSON.stringify({ code: -1, msg: 'fail', data: {} }))
+    mockDumpFailure('ERROR: Unsupported URL: https://www.tiktok.com/@nasa.sutherland/photo/7488448100236021038')
+
+    await expect(
+      resolvePublicMedia(mustValidate('https://www.tiktok.com/@nasa.sutherland/photo/7488448100236021038'))
+    ).rejects.toMatchObject({ code: 'UNAVAILABLE' })
+    expect(mockExecFile).toHaveBeenCalled()
+
+    errorSpy.mockRestore()
+  })
+
+  it('uses the OG photo for a login-walled Facebook photo post', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockDumpFailure('ERROR: [facebook] 123: This post requires login. Use --cookies.')
+    mockHttpsResponse(
+      '<html><head>' +
+        '<meta property="og:type" content="video.other" />' +
+        '<meta property="og:title" content="NASA&#039;s Kennedy Space Center" />' +
+        '<meta property="og:image" content="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1434243868366087" />' +
+        '</head></html>'
+    )
+
+    const media = await resolvePublicMedia(
+      mustValidate('https://www.facebook.com/NASAKennedy/posts/pfbid02m1wqLU4pGQVNmwSLzdqchYvaDFN5tVfjDGxaxmT8ekkRR7M1wpnSZT7zYW5v6Rskl')
+    )
+    expect(media.mediaType).toBe('image')
+    expect(media.formats[0].type).toBe('image')
+    expect(media.formats[0].directUrl).toContain('lookaside.fbsbx.com')
+
+    errorSpy.mockRestore()
+  })
+
+  it('keeps the login error when the OG page is a video post', async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    mockDumpFailure('ERROR: [facebook] 123: This post requires login. Use --cookies.')
+    mockHttpsResponse(
+      '<html><head>' +
+        '<meta property="og:type" content="video.other" />' +
+        '<meta property="og:video" content="https://video.fbsbx.com/v/123.mp4" />' +
+        '<meta property="og:image" content="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=999" />' +
+        '</head></html>'
+    )
+
+    await expect(
+      resolvePublicMedia(
+        mustValidate('https://www.facebook.com/NASAKennedy/posts/pfbid02m1wqLU4pGQVNmwSLzdqchYvaDFN5tVfjDGxaxmT8ekkRR7M1wpnSZT7zYW5v6Rskl')
+      )
+    ).rejects.toMatchObject({ code: 'UNAVAILABLE', message: expect.stringContaining('login') })
+
+    errorSpy.mockRestore()
   })
 })
