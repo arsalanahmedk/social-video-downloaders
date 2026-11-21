@@ -490,8 +490,13 @@ async function fetchTikwmViaImpersonation(pageUrl: string): Promise<TikTokPhotoD
         (typeof data.data.author?.nickname === 'string' && data.data.author.nickname) || 'TikTok'
     }
   } catch (err) {
+    // execFile puts the script's stdout (which carries {"error": ...} on a
+    // transport failure) and stderr on the error object — log both, or the
+    // failure is undebuggable from the server logs.
+    const stdout = (err as { stdout?: unknown })?.stdout
+    const stderr = (err as { stderr?: unknown })?.stderr
     console.log(
-      `[resolver] tikwm impersonation failed for ${pageUrl}: ${err instanceof Error ? err.message : String(err)}`
+      `[resolver] tikwm impersonation failed for ${pageUrl}: ${err instanceof Error ? err.message : String(err)} | stdout=${typeof stdout === 'string' ? stdout.slice(0, 300) : ''} | stderr=${typeof stderr === 'string' ? stderr.slice(0, 300) : ''}`
     )
     return null
   }
