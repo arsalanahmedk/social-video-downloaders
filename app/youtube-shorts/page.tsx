@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'youtube-shorts',
+  guideSlug: 'how-to-download-youtube-shorts',
+  guideTitle: 'How to Download YouTube Shorts',
   title: 'YouTube Shorts Downloader',
   headline: 'YouTube Shorts Downloader',
   subtitle: 'Save vertical YouTube Shorts in crystal clear 1080p Full HD video or download audio as MP3.',

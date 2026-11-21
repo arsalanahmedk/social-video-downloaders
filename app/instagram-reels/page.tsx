@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'instagram-reels',
+  guideSlug: 'how-to-download-instagram-reels',
+  guideTitle: 'How to Download Instagram Reels',
   title: 'Instagram Reels Downloader',
   headline: 'Instagram Reels Downloader',
   subtitle: 'Save public Instagram Reels in full 1080p HD resolution with synchronized audio and zero watermark overlays.',

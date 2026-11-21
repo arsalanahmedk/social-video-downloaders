@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'tiktok-audio',
+  guideSlug: 'how-to-extract-audio-from-videos',
+  guideTitle: 'How to Extract Audio from Videos (MP3)',
   title: 'TikTok Audio & Sound Downloader',
   headline: 'TikTok Sound & Audio Downloader',
   subtitle: 'Rip and download background songs, viral sound clips, and audio tracks from any public TikTok video directly to MP3.',

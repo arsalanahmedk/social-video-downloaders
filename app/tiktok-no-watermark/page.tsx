@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'tiktok-no-watermark',
+  guideSlug: 'how-to-download-tiktok-videos-without-watermark',
+  guideTitle: 'How to Download TikTok Videos Without Watermark',
   title: 'TikTok Downloader Without Watermark',
   headline: 'TikTok Video Downloader Without Watermark',
   subtitle: 'Save clean, watermark-free TikTok videos in Full HD MP4 directly to your computer or smartphone.',

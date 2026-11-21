@@ -59,6 +59,8 @@ export type ToolPageConfig = {
     href: string
     badge: string
   }[]
+  guideSlug?: string
+  guideTitle?: string
 }
 
 export function SpecializedToolPage({ config }: { config: ToolPageConfig }) {
@@ -621,6 +623,33 @@ export function SpecializedToolPage({ config }: { config: ToolPageConfig }) {
                     </div>
                   )
                 })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Guide Card ── */}
+        {config.guideSlug && config.guideTitle && (
+          <section className="bg-white py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-100">
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-[#f8fafc] border border-slate-200/80 rounded-[28px] p-7 sm:p-8 shadow-sm hover:shadow-xl transition-all">
+                <span className="text-xs font-bold tracking-wider text-blue-600 uppercase">
+                  Step-by-step guide
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2">
+                  <Link href={`/guides/${config.guideSlug}`} className="hover:text-blue-600 transition-colors">
+                    {config.guideTitle}
+                  </Link>
+                </h3>
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed mt-2">
+                  Full steps for phone and desktop, plus what to do when a download fails.
+                </p>
+                <Link
+                  href={`/guides/${config.guideSlug}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 mt-3 hover:text-blue-700"
+                >
+                  Read the guide <ArrowRight size={15} />
+                </Link>
               </div>
             </div>
           </section>

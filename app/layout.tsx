@@ -3,7 +3,6 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { ThemeProvider } from '@/components/theme-provider'
 import { AppToaster, DynamicViewportScript } from '@/components/ui/toaster'
-import Script from 'next/script'
 import './globals.css'
 
 export const viewport: Viewport = {
@@ -97,7 +96,10 @@ export default function RootLayout({
           fontFamily: `var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif`,
         }}
       >
-        <Script
+        {/* Server-rendered JSON-LD (plain script tag, not next/script): next/script
+            injects via JS, so the markup is missing from raw HTML and slower for
+            crawlers to pick up. */}
+        <script
           id="site-structured-data"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -111,6 +113,13 @@ export default function RootLayout({
                   url: 'https://www.socialvideodownloader.online',
                   logo: 'https://www.socialvideodownloader.online/icon.svg',
                   description: 'A permission-first tool for downloading publicly accessible social media media.'
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': 'https://www.socialvideodownloader.online/#website',
+                  name: 'SocialVideoDownloader',
+                  url: 'https://www.socialvideodownloader.online',
+                  publisher: { '@id': 'https://www.socialvideodownloader.online/#organization' }
                 },
                 {
                   '@type': 'WebApplication',

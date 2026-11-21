@@ -17,6 +17,21 @@ export const GUIDE_LINKS = [
   { slug: 'how-to-download-videos-safely', title: 'How to Download Videos Safely' },
 ]
 
+// Publish / last-edit dates per guide, matching the sitemap's honest lastmod.
+// First batch published 13 Nov 2026, second batch 18 Nov 2026.
+export const GUIDE_DATES: Record<string, { published: string; modified: string }> = {
+  'how-to-download-instagram-reels': { published: '2026-11-13', modified: '2026-11-13' },
+  'how-to-download-tiktok-videos-without-watermark': { published: '2026-11-13', modified: '2026-11-13' },
+  'how-to-download-youtube-shorts': { published: '2026-11-13', modified: '2026-11-13' },
+  'how-to-download-facebook-videos': { published: '2026-11-13', modified: '2026-11-13' },
+  'how-to-save-videos-for-offline-viewing-legally': { published: '2026-11-13', modified: '2026-11-13' },
+  'how-to-download-x-twitter-videos': { published: '2026-11-18', modified: '2026-11-18' },
+  'how-to-download-pinterest-videos': { published: '2026-11-18', modified: '2026-11-18' },
+  'how-to-extract-audio-from-videos': { published: '2026-11-18', modified: '2026-11-18' },
+  'how-to-download-videos-on-android': { published: '2026-11-18', modified: '2026-11-18' },
+  'how-to-download-videos-safely': { published: '2026-11-18', modified: '2026-11-18' },
+}
+
 export function GuideLayout({
   title,
   description,
@@ -29,9 +44,51 @@ export function GuideLayout({
   currentSlug: string
 }) {
   const related = GUIDE_LINKS.filter((g) => g.slug !== currentSlug)
+
+  // Plain server-rendered Article + BreadcrumbList schema (a normal script
+  // tag, so it is present in the raw HTML for crawlers without JS).
+  const siteUrl = 'https://www.socialvideodownloader.online'
+  const guideUrl = `${siteUrl}/guides/${currentSlug}`
+  const dates = GUIDE_DATES[currentSlug] ?? { published: '2026-11-13', modified: '2026-11-13' }
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${guideUrl}/#article`,
+        headline: title,
+        datePublished: dates.published,
+        dateModified: dates.modified,
+        author: { '@id': `${siteUrl}/#organization` },
+        publisher: { '@id': `${siteUrl}/#organization` },
+        mainEntityOfPage: { '@id': `${guideUrl}/#webpage` },
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${guideUrl}/#webpage`,
+        url: guideUrl,
+        isPartOf: { '@id': `${siteUrl}/#website` },
+        breadcrumb: { '@id': `${guideUrl}/#breadcrumb` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${guideUrl}/#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Guides', item: `${siteUrl}/guides` },
+          { '@type': 'ListItem', position: 3, name: title, item: guideUrl },
+        ],
+      },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-[#030712] font-sans antialiased text-slate-900 selection:bg-yellow-400 selection:text-black">
       <NeurexNavbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main>
         <section className="relative bg-[#030712] text-white pt-16 pb-16 overflow-hidden border-b border-white/5">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[400px] pointer-events-none opacity-40">

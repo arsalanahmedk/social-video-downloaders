@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'facebook-video',
+  guideSlug: 'how-to-download-facebook-videos',
+  guideTitle: 'How to Download Facebook Videos',
   title: 'Facebook Video Downloader',
   headline: 'Facebook Video Downloader',
   subtitle: 'Extract and archive public Facebook Watch broadcasts, community videos, and clips in original HD quality.',

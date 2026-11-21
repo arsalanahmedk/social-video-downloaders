@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'facebook-reels',
+  guideSlug: 'how-to-download-facebook-videos',
+  guideTitle: 'How to Download Facebook Videos',
   title: 'Facebook Reels Downloader',
   headline: 'Facebook Reels Downloader',
   subtitle: 'Save public Facebook Reels and short videos in 1080p Full HD MP4 directly to your mobile phone or PC.',

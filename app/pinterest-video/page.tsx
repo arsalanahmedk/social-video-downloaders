@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'pinterest-video',
+  guideSlug: 'how-to-download-pinterest-videos',
+  guideTitle: 'How to Download Pinterest Videos',
   title: 'Pinterest Video Downloader',
   headline: 'Pinterest Video & Idea Pins Downloader',
   subtitle: 'Save inspiring video pins, DIY tutorials, and Idea Pins from Pinterest in high definition MP4.',

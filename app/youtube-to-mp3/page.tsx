@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'youtube-to-mp3',
+  guideSlug: 'how-to-extract-audio-from-videos',
+  guideTitle: 'How to Extract Audio from Videos (MP3)',
   title: 'YouTube to MP3 Converter',
   headline: 'YouTube to MP3 Converter',
   subtitle: 'Extract studio-quality 320kbps audio from public YouTube videos, podcasts, and speeches into universal MP3 format.',

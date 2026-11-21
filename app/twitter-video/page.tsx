@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 
 const config: ToolPageConfig = {
   slug: 'twitter-video',
+  guideSlug: 'how-to-download-x-twitter-videos',
+  guideTitle: 'How to Download X (Twitter) Videos',
   title: 'X / Twitter Video Downloader',
   headline: 'X / Twitter Video Downloader',
   subtitle: 'Save videos attached to public posts on X (formerly Twitter) in original high definition MP4.',

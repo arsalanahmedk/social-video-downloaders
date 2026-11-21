@@ -47,22 +47,40 @@ const SEO_ROUTES = [
   'youtube-to-mp3'
 ]
 
+// Honest last-modified dates: change a date only when that page's content
+// actually changes. A lastmod that moves on every deploy teaches Google to
+// discount the sitemap, so these are pinned to real publish/edit dates.
+const LASTMOD: Record<string, string> = {
+  // Homepage: FAQ section added 18 Nov 2026.
+  '': '2026-11-18',
+  // First batch of guides, published 13 Nov 2026.
+  'guides/how-to-download-instagram-reels': '2026-11-13',
+  'guides/how-to-download-tiktok-videos-without-watermark': '2026-11-13',
+  'guides/how-to-download-youtube-shorts': '2026-11-13',
+  'guides/how-to-download-facebook-videos': '2026-11-13',
+  'guides/how-to-save-videos-for-offline-viewing-legally': '2026-11-13',
+  // Second batch of guides, published 18 Nov 2026.
+  'guides/how-to-download-x-twitter-videos': '2026-11-18',
+  'guides/how-to-download-pinterest-videos': '2026-11-18',
+  'guides/how-to-extract-audio-from-videos': '2026-11-18',
+  'guides/how-to-download-videos-on-android': '2026-11-18',
+  'guides/how-to-download-videos-safely': '2026-11-18',
+}
+
+// Everything else: content as of the 15 Nov 2026 SEO review.
+const DEFAULT_LASTMOD = '2026-11-15'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.socialvideodownloader.online'
-  const now = new Date()
 
   return [
     ...SEO_ROUTES.map((route) => ({
       url: route ? `${baseUrl}/${route}` : baseUrl,
-      lastModified: now,
-      changeFrequency: route === '' ? 'daily' as const : 'monthly' as const,
-      priority: route === '' ? 1 : 0.7
+      lastModified: LASTMOD[route] ?? DEFAULT_LASTMOD,
     })),
     ...platforms.map((platform) => ({
       url: `${baseUrl}/${platform.id}`,
-      lastModified: now,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8
+      lastModified: DEFAULT_LASTMOD,
     }))
   ]
 }
