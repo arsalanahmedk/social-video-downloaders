@@ -416,6 +416,37 @@ describe('resolvePublicMedia - photo posts', () => {
     logSpy.mockRestore()
   })
 
+  it('resolves a TikTok photo post through the Vercel tikwm proxy when the server IP is blocked', async () => {
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    mockExecFile.mockImplementation(
+      (_bin: string, _args: string[], _options: unknown, callback: ExecCallback) => {
+        callback(new Error('spawn python ENOENT'), '', '')
+      }
+    )
+    mockTikwm([
+      'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/aaa~tplv-photomode-image.jpeg?dr=1',
+      'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-i-photomode-tx/bbb~tplv-photomode-image.jpeg?dr=1'
+    ])
+
+    const media = await resolvePublicMedia(
+      mustValidate('https://www.tiktok.com/@nasa.sutherland/photo/7488448100236021038')
+    )
+    // The first https call must be the proxy, not tikwm directly.
+    expect((mockHttpsGet.mock.calls[0][0] as string)).toContain(
+      'socialvideodownloader.online/api/v1/tikwm-proxy?url='
+    )
+    const ytDlpCalls = mockExecFile.mock.calls.filter((call) =>
+      (call[1] as string[]).some((a) => a === 'yt_dlp')
+    )
+    expect(ytDlpCalls).toHaveLength(0)
+    expect(media.mediaType).toBe('carousel')
+    expect(media.author).toBe('Tester')
+    expect(media.formats.length).toBe(2)
+    expect(media.formats[0].directUrl).toContain('tiktokcdn-us.com')
+
+    logSpy.mockRestore()
+  })
+
   it('falls through to yt-dlp when the TikTok photo API has no images', async () => {
     const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
     mockHttpsResponse(JSON.stringify({ code: -1, msg: 'fail', data: {} }))

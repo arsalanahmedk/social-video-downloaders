@@ -502,9 +502,81 @@ async function fetchTikwmViaImpersonation(pageUrl: string): Promise<TikTokPhotoD
   }
 }
 
+/**
+ * Calls the tikwm API through the site's own Vercel deployment
+ * (app/api/v1/tikwm-proxy) instead of this server. Render's egress IP gets
+ * HTTP 403 from tikwm even with Chrome impersonation; Vercel's egress IPs
+ * may not be blocked. Returns null on any failure; the caller then tries
+ * the plain direct request and finally yt-dlp.
+ */
+const TIKWM_PROXY_URL = 'https://socialvideodownloader.online/api/v1/tikwm-proxy'
+
+async function fetchTikwmViaProxy(pageUrl: string): Promise<TikTokPhotoData | null> {
+  const proxyUrl = `${TIKWM_PROXY_URL}?url=${encodeURIComponent(pageUrl)}`
+  console.log(`[resolver] tikwm proxy lookup for ${pageUrl}`)
+  return new Promise((resolve) => {
+    const req = https.get(
+      proxyUrl,
+      {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; SocialVideoDownloader/1.0)',
+          Accept: 'application/json'
+        },
+        timeout: 15000
+      },
+      (res) => {
+        console.log(`[resolver] tikwm proxy HTTP ${res.statusCode} for ${pageUrl}`)
+        const chunks: Buffer[] = []
+        res.on('data', (c: Buffer) => chunks.push(c))
+        res.on('end', () => {
+          try {
+            const data = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+            const images = Array.isArray(data?.data?.images)
+              ? data.data.images.filter((u: unknown) => typeof u === 'string' && (u as string).startsWith('http'))
+              : []
+            if (data?.code !== 0 || images.length === 0) {
+              console.log(`[resolver] tikwm proxy no images (code=${data?.code}, images=${images.length}) for ${pageUrl}`)
+              resolve(null)
+              return
+            }
+            console.log(`[resolver] tikwm proxy OK (${images.length} images) for ${pageUrl}`)
+            resolve({
+              imageUrls: images,
+              title:
+                (typeof data.data.title === 'string' && data.data.title.trim()) ||
+                'TikTok Photo Post',
+              author:
+                (typeof data.data.author?.nickname === 'string' && data.data.author.nickname) ||
+                'TikTok'
+            })
+          } catch (err) {
+            console.log(`[resolver] tikwm proxy response parse failed for ${pageUrl}: ${err instanceof Error ? err.message : String(err)}`)
+            resolve(null)
+          }
+        })
+        res.on('error', (err) => {
+          console.log(`[resolver] tikwm proxy response error for ${pageUrl}: ${err.message}`)
+          resolve(null)
+        })
+      }
+    )
+    req.on('error', (err) => {
+      console.log(`[resolver] tikwm proxy request error for ${pageUrl}: ${err.message}`)
+      resolve(null)
+    })
+    req.on('timeout', () => {
+      console.log(`[resolver] tikwm proxy request timed out for ${pageUrl}`)
+      req.destroy()
+      resolve(null)
+    })
+  })
+}
+
 async function extractTikTokPhotoMedia(pageUrl: string): Promise<TikTokPhotoData | null> {
   const viaImpersonation = await fetchTikwmViaImpersonation(pageUrl)
   if (viaImpersonation) return viaImpersonation
+  const viaProxy = await fetchTikwmViaProxy(pageUrl)
+  if (viaProxy) return viaProxy
   const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(pageUrl)}`
   console.log(`[resolver] tikwm lookup for ${pageUrl}`)
   return new Promise((resolve) => {
