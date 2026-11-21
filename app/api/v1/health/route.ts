@@ -9,7 +9,7 @@ export function GET() {
   return NextResponse.json({
     status: 'healthy',
     service: 'SocialVideoDownloader API',
-    version: '1.0.0',
+    version: '1.0.1',
     timestamp: new Date().toISOString(),
     uptime: `${uptimeSeconds}s`,
     platformsSupported: platforms.length,

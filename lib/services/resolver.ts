@@ -451,6 +451,7 @@ type TikTokPhotoData = {
  */
 async function extractTikTokPhotoMedia(pageUrl: string): Promise<TikTokPhotoData | null> {
   const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(pageUrl)}`
+  console.log(`[resolver] tikwm lookup for ${pageUrl}`)
   return new Promise((resolve) => {
     const req = https.get(
       apiUrl,
@@ -462,6 +463,7 @@ async function extractTikTokPhotoMedia(pageUrl: string): Promise<TikTokPhotoData
         timeout: 15000
       },
       (res) => {
+        console.log(`[resolver] tikwm HTTP ${res.statusCode} for ${pageUrl}`)
         const chunks: Buffer[] = []
         res.on('data', (c: Buffer) => chunks.push(c))
         res.on('end', () => {
@@ -471,9 +473,11 @@ async function extractTikTokPhotoMedia(pageUrl: string): Promise<TikTokPhotoData
               ? data.data.images.filter((u: unknown) => typeof u === 'string' && (u as string).startsWith('http'))
               : []
             if (data?.code !== 0 || images.length === 0) {
+              console.log(`[resolver] tikwm no images (code=${data?.code}, images=${images.length}) for ${pageUrl}`)
               resolve(null)
               return
             }
+            console.log(`[resolver] tikwm OK (${images.length} images) for ${pageUrl}`)
             resolve({
               imageUrls: images,
               title:
@@ -483,15 +487,23 @@ async function extractTikTokPhotoMedia(pageUrl: string): Promise<TikTokPhotoData
                 (typeof data.data.author?.nickname === 'string' && data.data.author.nickname) ||
                 'TikTok'
             })
-          } catch {
+          } catch (err) {
+            console.log(`[resolver] tikwm response parse failed for ${pageUrl}: ${err instanceof Error ? err.message : String(err)}`)
             resolve(null)
           }
         })
-        res.on('error', () => resolve(null))
+        res.on('error', (err) => {
+          console.log(`[resolver] tikwm response error for ${pageUrl}: ${err.message}`)
+          resolve(null)
+        })
       }
     )
-    req.on('error', () => resolve(null))
+    req.on('error', (err) => {
+      console.log(`[resolver] tikwm request error for ${pageUrl}: ${err.message}`)
+      resolve(null)
+    })
     req.on('timeout', () => {
+      console.log(`[resolver] tikwm request timed out for ${pageUrl}`)
       req.destroy()
       resolve(null)
     })
@@ -830,6 +842,7 @@ export async function resolvePublicMedia(validation: Extract<PublicUrlResult, { 
   // TikTok photo API first; on failure fall through to yt-dlp, which will
   // report the usual error — no worse than before.
   if (platform.id === 'tiktok' && /\/photo\//.test(url.pathname)) {
+    console.log(`[resolver] TikTok /photo/ URL — trying tikwm first for ${targetUrlStr}`)
     const tt = await extractTikTokPhotoMedia(targetUrlStr)
     if (tt) {
       const items = tt.imageUrls
