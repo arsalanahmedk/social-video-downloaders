@@ -125,6 +125,96 @@ export default function GuidePage() {
         their systems regularly, and an extractor that worked yesterday can need a short while to
         adapt.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Bitrate and quality: what to expect</h2>
+      <p>
+        Audio quality is measured in bitrate — kilobits per second — and the number tells you how
+        much detail the file keeps. A 320 kbps MP3 is close to CD quality for most ears, 192 kbps
+        is very good, and 128 kbps is acceptable for speech but noticeably flat for music. The
+        catch is that extraction cannot improve on the source: if the original video&apos;s audio
+        was uploaded at 128 kbps, the extracted MP3 will be 128 kbps no matter what the download
+        button promises. A site claiming to &ldquo;upgrade&rdquo; audio to 320 kbps is just
+        re-encoding the same limited audio into a larger file. When a choice of bitrates is
+        offered, pick the highest — it costs a little more storage and never sounds worse — but
+        judge the result by listening, not by the label.
+      </p>
+      <p>
+        The container matters less than people think. MP3 is the universal choice: it plays on
+        every phone, car stereo, smart speaker, and editor. M4A (AAC) sounds slightly better at
+        the same file size and is the native format for Apple devices, while Opus is excellent
+        but less widely supported. If your only goal is listening, MP3 is the safe default. If you
+        are editing, prefer the highest-quality stream available in whatever container your editor
+        accepts, and export to MP3 only at the end, because every re-encode loses a little detail.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Editing and using extracted audio</h2>
+      <p>
+        An extracted MP3 is an ordinary audio file, and everything that works on a song works on
+        it. Trim it in any audio editor — Audacity is free and does the job on desktop, while
+        phone editors like Lexis or WaveEditor handle quick cuts on mobile. Fading the first and
+        last second avoids the abrupt clicks that make a ringtone sound homemade. If you are
+        making a ringtone, keep it under 30 seconds and export at 192 kbps or higher; both iPhone
+        and Android accept MP3 ringtones with a little setup, and the file is small enough to send
+        to yourself by email or message.
+      </p>
+      <p>
+        For video editing, extracted audio is a reference track, not a licence. Dropping a
+        creator&apos;s soundtrack under your own video is exactly the reuse that copyright
+        enforcement targets, and automated systems on YouTube, TikTok, and Instagram detect it
+        within minutes of upload. Use extracted audio to study a sound, to practise editing, or
+        as a placeholder while you work — and replace it with licensed or original audio before
+        you publish. The same applies to podcasts: quoting a short clip for commentary is very
+        different from republishing the whole episode&apos;s audio, and only the first is
+        defensible.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Podcasts, lectures, and long videos</h2>
+      <p>
+        Long videos are where audio extraction shines. A two-hour lecture as video can be over a
+        gigabyte; as audio it is roughly 100 megabytes at 128 kbps, small enough to keep on a phone
+        and listen to on a commute. Download on Wi-Fi, because a long extraction over mobile data
+        is slow and a dropped connection means starting over. Once saved, most podcast and audio
+        apps will play the MP3, remember your position, and let you speed it up — rename the file
+        with the lecture title and date so you can find it again, and keep lectures in their own
+        folder, separate from music.
+      </p>
+      <p>
+        Very long videos sometimes split into chapters or segments on the platform, and an
+        extractor may return the audio in one file or several, depending on how the platform
+        serves it. If you get several files, a free tool like MP3Gain or a simple audio editor can
+        join them in order — just check the filenames for sequence numbers first. And if the audio
+        stops partway through a long file, the download was probably interrupted: delete it and
+        download again on a stable connection rather than assuming the original video is broken.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Can I extract audio from a video with copyrighted music?</strong> You can extract
+        it for private listening, but you may not reuse the music in your own public content. The
+        music&apos;s licence belongs to its rights holder, and extraction does not transfer it.
+      </p>
+      <p>
+        <strong>Why is the MP3 quieter than the video?</strong> Some platforms normalise audio
+        differently for streaming and download. If the file sounds quiet, raise the volume in your
+        editor or player rather than re-downloading — the audio is all there, just at a lower
+        level. A free normaliser like MP3Gain can even out the volume without re-encoding.
+      </p>
+      <p>
+        <strong>What if the video has no audio track?</strong> Silent videos — GIFs, muted clips,
+        slideshows — have nothing to extract, and the extractor will say so or return an empty
+        file. Check whether the original video plays sound on its platform before retrying.
+      </p>
+      <p>
+        <strong>Is MP3 the best format for editing?</strong> For final listening, yes. For editing,
+        a lossless format like WAV preserves more detail through multiple edits, but the source
+        audio was already compressed when it was uploaded, so converting an extracted MP3 to WAV
+        adds nothing. Edit the MP3 directly and export once.
+      </p>
+      <p>
+        <strong>Can I listen offline to extracted podcast audio?</strong> Yes. Save the MP3 to
+        your phone and play it in any audio app. It will not appear in your podcast app&apos;s
+        subscriptions, because it is a file, not a feed — but most audio apps remember playback
+        position for local files too.
+      </p>
     </GuideLayout>
   )
 }

@@ -19,6 +19,11 @@ const SEO_ROUTES = [
   'guides/how-to-extract-audio-from-videos',
   'guides/how-to-download-videos-on-android',
   'guides/how-to-download-videos-safely',
+  'guides/how-to-download-tiktok-photos',
+  'guides/how-to-download-instagram-stories',
+  'guides/how-to-download-twitter-gifs',
+  'guides/how-to-download-facebook-reels',
+  'guides/video-quality-formats-explained',
   'help',
   'how-it-works',
   'privacy',
@@ -65,6 +70,12 @@ const LASTMOD: Record<string, string> = {
   'guides/how-to-extract-audio-from-videos': '2026-11-18',
   'guides/how-to-download-videos-on-android': '2026-11-18',
   'guides/how-to-download-videos-safely': '2026-11-18',
+  // Third batch of guides, published 23 Nov 2026.
+  'guides/how-to-download-tiktok-photos': '2026-11-23',
+  'guides/how-to-download-instagram-stories': '2026-11-23',
+  'guides/how-to-download-twitter-gifs': '2026-11-23',
+  'guides/how-to-download-facebook-reels': '2026-11-23',
+  'guides/video-quality-formats-explained': '2026-11-23',
 }
 
 // Everything else: content as of the 15 Nov 2026 SEO review.

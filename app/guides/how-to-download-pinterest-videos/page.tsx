@@ -120,6 +120,98 @@ export default function GuidePage() {
         domains, and wait an hour before retrying — Pinterest changes its systems regularly, and a
         downloader that worked yesterday can need a short while to adapt.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Video Pins, idea Pins, and story Pins</h2>
+      <p>
+        Pinterest has three video-like formats, and they behave differently. Ordinary video Pins
+        are single videos attached to a Pin, usually short, and they download as MP4 files like
+        any other video. Idea Pins — Pinterest&apos;s former name for its multi-page, story-like
+        format — can contain several pages, each with its own video or image, and a downloader
+        will usually list the first page&apos;s video or the individual pages, depending on how
+        the Pin is structured. If an idea Pin has five pages, do not expect one neat file: save
+        each page you need separately. Story Pins were Pinterest&apos;s earlier experiment in the
+        same direction and are largely retired now; surviving ones behave like idea Pins. In all
+        three cases, only Pins on public boards can be downloaded — secret boards are private by
+        definition, and their content is not accessible.
+      </p>
+      <p>
+        Shopping Pins deserve a mention because they confuse people: a Pin that links to a product
+        page may show a video, but the video is often an advertisement hosted by the retailer, not
+        a Pinterest upload. Downloading it, where it works at all, gives you the ad creative, and
+        reusing a retailer&apos;s advertisement is a trademark problem as well as a copyright one.
+        If you want the product image for a mood board, use Pinterest&apos;s own save feature to
+        keep it on your board instead — that is what boards are for, and it keeps the link to the
+        seller intact.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Image Pins: getting the full-resolution original</h2>
+      <p>
+        Pinterest shows you compressed previews as you browse: small 236-pixel-wide thumbnails in
+        the feed, 564-pixel versions when you open a Pin. The original upload is usually much
+        larger — 736 pixels wide at minimum, often 1000 pixels or more, and sometimes the full
+        resolution of the photographer&apos;s camera. Right-clicking and saving the image in your
+        browser usually captures the preview, not the original, which is why saved Pins often look
+        soft when printed or used as wallpaper. A downloader asks Pinterest for the original file
+        instead, so you get the largest version the creator uploaded.
+      </p>
+      <p>
+        Even the original has limits. Pinterest recompresses uploads, so a photo that started life
+        as a 24-megapixel camera file arrives as a compressed JPG of a few hundred kilobytes — good
+        enough for a phone wallpaper or a design reference, not for a large print. Check the
+        downloaded file&apos;s dimensions before you plan around it: on desktop, right-click the
+        file and look at its properties; on a phone, open it in your gallery&apos;s details view. If
+        you need true print quality, look for the photographer&apos;s own site or portfolio, which
+        the Pin usually links to, and download or license the original there.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Organising downloads: boards, folders, and credits</h2>
+      <p>
+        Pinterest users are collectors by nature, and downloads pile up fast. A folder per project
+        — &ldquo;kitchen-renovation&rdquo;, &ldquo;wedding-moodboard&rdquo;, &ldquo;poster-ideas&rdquo;
+        — works better than one giant Downloads folder, and naming files after the Pin&apos;s subject
+        rather than its number makes them searchable later. Keep a small text file or note in each
+        folder with the source links of the Pins you saved, especially if you plan to publish
+        anything based on them. That note is your credit trail: when you later wonder where an
+        image came from, or whether you have permission to use it, the answer is in the folder, not
+        in your memory.
+      </p>
+      <p>
+        Remember that Pinterest&apos;s own save feature is usually the better tool for collecting
+        ideas you only want to look at again. Saving a Pin to one of your boards keeps it organised
+        inside Pinterest, preserves the link to the source, and credits the creator automatically.
+        Download the file only when you need it outside Pinterest — for offline viewing, for an
+        edit, or as a reference in a design tool. That distinction keeps your boards useful and
+        your downloads folder from becoming a second, worse copy of Pinterest.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Can I download Pins from a secret board?</strong> No. Secret boards are private, and
+        their Pins are not publicly accessible. If it is your own board, use Pinterest&apos;s own
+        features to export or save your Pins.
+      </p>
+      <p>
+        <strong>Why does my downloaded video have no sound?</strong> Some video Pins are silent by
+        design — Pinterest autoplays many videos muted. Others carry music that Pinterest restricts.
+        Try the audio option if one is offered, and check whether the Pin itself plays sound when
+        you open it on Pinterest.
+      </p>
+      <p>
+        <strong>Can I download animated GIF Pins?</strong> Yes, in most cases. GIF Pins are stored
+        as short video files or animated images, and the downloader returns the original format.
+        If the file arrives as an MP4, that is the original — Pinterest serves animated Pins that
+        way for the same reason X does.
+      </p>
+      <p>
+        <strong>What if a Pin was removed?</strong> Removed Pins show an error page, and there is
+        nothing to download. Pinterest removes Pins for copyright complaints, policy violations, or
+        at the creator&apos;s request, and removed content stays removed.
+      </p>
+      <p>
+        <strong>Do I need to credit the creator if I use a Pin image in my own work?</strong> Yes,
+        unless the image is explicitly marked for reuse. Link back to the original Pin and name the
+        creator. For commercial use, get permission in writing or use a properly licensed image
+        instead.
+      </p>
     </GuideLayout>
   )
 }

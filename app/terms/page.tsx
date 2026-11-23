@@ -86,6 +86,34 @@ export default function TermsPage() {
               </p>
             </div>
 
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">6. Acceptable Use</h2>
+              <p className="text-slate-600 text-base">
+                You agree not to use the service to harass, impersonate, or defame any person; to download content for the purpose of misrepresenting it as your own; to attempt to disrupt the service, probe its infrastructure, or submit malicious links; or to use automated tools to harvest media at scale. Reasonable personal use — pasting links one at a time, as a person would — is welcome. Bulk scraping, bot traffic, and attempts to bypass rate limits are not, and may result in your requests being blocked.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">7. Service Availability &amp; Platform Changes</h2>
+              <p className="text-slate-600 text-base">
+                The service depends on the public pages of third-party platforms, and those platforms change how they serve media without notice. A tool page that works today may stop working tomorrow because a platform changed its systems, blocked server requests, or placed content behind a login. We work to keep the tool pages accurate and to say plainly where a platform is unreliable, but we cannot guarantee that any particular platform will keep working, and we are not liable for a platform&apos;s decision to restrict access to its own content.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">8. Limitation of Liability</h2>
+              <p className="text-slate-600 text-base">
+                To the fullest extent permitted by law, SocialVideoDownloader and its operator are not liable for any indirect, incidental, or consequential damages arising from your use of the service, including any loss arising from your reuse of downloaded content. You are responsible for how you use downloaded media: if you republish someone else&apos;s work without permission and face a copyright claim, that responsibility is yours, not ours. Nothing in these terms limits liability that cannot legally be limited.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">9. Changes to These Terms &amp; Contact</h2>
+              <p className="text-slate-600 text-base">
+                We may update these terms from time to time, and the updated version will be posted on this page with a revised date. Continued use of the service after an update means you accept the updated terms. Questions about these terms, or copyright notices under section 4, can be sent through the contact page.
+              </p>
+            </div>
+
           </div>
         </section>
       </main>

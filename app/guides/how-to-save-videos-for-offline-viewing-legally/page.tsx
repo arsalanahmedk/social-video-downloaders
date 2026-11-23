@@ -127,6 +127,106 @@ export default function GuidePage() {
         question is not a legal test, but it is a good one — and if the answer is no, the download
         is not worth it.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Your own content first</h2>
+      <p>
+        The clearest case for downloading is your own content. If you posted a video and the
+        original file on your phone is gone, downloading your own public post is simply getting
+        your own work back. Every platform also offers an official way to do this: Instagram lets
+        you download your own Reels from the share sheet, TikTok&apos;s save button works on your
+        own videos without restriction, YouTube Studio lets you download your own uploads, and
+        Facebook&apos;s settings include a full download of everything you have posted. These
+        official routes are always the first choice for your own material, because they give you
+        the best quality the platform holds and they never raise a question about permission. Use
+        a downloader for your own posts when the official route is slow, awkward, or unavailable
+        for that particular post — not as a replacement for keeping backups in the first place.
+      </p>
+      <p>
+        Backing up as you go is the habit that makes all of this unnecessary. Keep the original
+        file from your camera or editor, not just the uploaded copy: the uploaded copy has been
+        compressed by the platform, and the original is always better quality. A simple folder per
+        platform, named by date, is enough. Cloud backup helps, but a copy on an external drive or
+        a second cloud service protects you when an account is locked, hacked, or deleted — and
+        creators lose accounts more often than anyone expects.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Creative Commons and royalty-free sources</h2>
+      <p>
+        If you need video you are allowed to reuse, you do not have to take it from social media at
+        all. Creative Commons libraries — Pexels, Pixabay, the Internet Archive, Wikimedia Commons
+        — host millions of photos, clips, and sounds published under licences that explicitly
+        allow reuse, usually with nothing more than a credit line. YouTube itself has a Creative
+        Commons filter in its search, and videos marked that way can be reused under the licence
+        terms shown on the video page. Stock libraries, both free and paid, sell licences that
+        cover commercial use, which social media downloads never do.
+      </p>
+      <p>
+        Read the licence, not just the word &ldquo;free&rdquo;. Creative Commons has several
+        flavours: some allow commercial use, some do not; some allow edits, some require you to
+        share your version under the same licence; all of them require credit. A clip marked
+        &ldquo;free download&rdquo; on a random site may have no licence at all, which means the
+        ordinary copyright rules apply and you may not reuse it. When the licence is unclear, treat
+        the content as fully copyrighted and either ask the creator or find an alternative with a
+        clear licence. Ten minutes of checking is cheaper than a takedown notice.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">What the platforms&apos; own rules say</h2>
+      <p>
+        Every platform&apos;s terms say, in different words, the same thing: you may not download
+        or redistribute other people&apos;s content except through the features the platform
+        provides, and the creator keeps all rights in what they post. Instagram&apos;s terms
+        prohibit accessing content through automated means and require permission to use
+        someone&apos;s posts beyond viewing them. TikTok&apos;s rules forbid downloading, copying,
+        or redistributing content except through its own sharing features. YouTube&apos;s terms
+        restrict downloading to its own offline features unless the creator has enabled downloads.
+        Facebook and X have equivalent rules. These terms are contracts between you and the
+        platform, separate from copyright law, and breaking them can get your account restricted
+        even when no copyright complaint is ever filed.
+      </p>
+      <p>
+        That does not make every download wrong. Platforms enforce these rules mainly against
+        redistribution — re-uploading, scraping at scale, and commercial reuse — not against a
+        person saving a public clip to watch offline. But the line is theirs to draw, and it moves.
+        The practical rule is simple: save for yourself, quietly, and you are in the low-risk
+        zone that millions of people occupy; publish someone else&apos;s work, and you have stepped
+        into the zone the rules are actually written for. This guide is general information, not
+        legal advice — if a download matters commercially, or a dispute is already happening, talk
+        to a lawyer in your own country, because copyright and fair-use rules differ by place.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Can I download a video for a school or university project?</strong> Usually yes.
+        Educational use is one of the purposes fair use and fair dealing protect, especially when
+        the clip is a small part of a larger piece of your own work, properly credited, and shown
+        only to your class. Publishing the project publicly, or using the whole video, weakens that
+        protection.
+      </p>
+      <p>
+        <strong>What about reaction videos and commentary?</strong> Commentary, criticism, and
+        review are classic fair-use purposes, but they protect your commentary, not the clip
+        itself. Keep the borrowed portion short, make sure your own contribution is the main part
+        of the video, and expect automated systems to flag it anyway — fair use is a defence you
+        argue after a claim, not a shield that stops claims from happening.
+      </p>
+      <p>
+        <strong>Can I use a downloaded thumbnail in my own video?</strong> Thumbnails are the
+        creator&apos;s artwork, and the same rules apply: credit them, keep it small and incidental
+        where possible, and prefer making your own thumbnail. Using someone&apos;s thumbnail as
+        your video&apos;s cover image is a visible reuse that creators notice and object to.
+      </p>
+      <p>
+        <strong>Should I delete a download after I have used it?</strong> If you downloaded it for
+        a one-off purpose — watching offline, checking a reference — deleting it afterwards is tidy
+        and removes any doubt about what you are keeping. Keep downloads you own or have a licence
+        for; treat everything else as temporary.
+      </p>
+      <p>
+        <strong>What happens if I get a DMCA notice?</strong> A DMCA notice is a formal copyright
+        complaint. Take the content down promptly, do not re-upload it, and use the counter-notice
+        process only if you genuinely believe the complaint is wrong — a false counter-notice has
+        legal consequences of its own. Repeated notices lead to account termination on every major
+        platform.
+      </p>
     </GuideLayout>
   )
 }

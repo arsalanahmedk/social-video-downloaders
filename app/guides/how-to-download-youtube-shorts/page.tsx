@@ -127,6 +127,99 @@ export default function GuidePage() {
         systems regularly; a downloader that worked yesterday can need a short while to adapt, so
         waiting an hour before retrying is a reasonable first step.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">MP4 or MP3: which format to pick</h2>
+      <p>
+        Every Short offers at least two kinds of download: the video itself as an MP4, and the
+        soundtrack as an MP3. Pick the MP4 when the picture matters — a dance, a demo, a visual
+        joke, anything you want to watch again. Pick the MP3 when only the sound matters: a song, a
+        speech, a podcast clip, or a sound effect you want to keep. The MP3 is a fraction of the
+        size — often under one megabyte per minute, against ten or more for the video — so it is
+        also the kinder choice on a slow connection or a nearly full phone. One warning: an MP3
+        made from a Short keeps whatever is in the original audio, including background music the
+        creator licensed for YouTube. That licence does not travel with the file, so using the
+        soundtrack in your own public video can still trigger a copyright claim.
+      </p>
+      <p>
+        Some Shorts also offer an audio-only MP4 or M4A option. That is the same soundtrack in a
+        different container, useful if your editor prefers MP4 audio, but for most people the MP3
+        is simpler and plays everywhere: phones, cars, smart speakers, and every audio app. If you
+        download both the video and the audio of the same Short, give them matching filenames so
+        they stay together in your downloads folder, and delete the one you do not need — duplicate
+        files are the fastest way to fill a phone.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Quality: what 1080p really means for a Short</h2>
+      <p>
+        A Short is a vertical video, 1080 pixels wide and 1920 tall at full quality, usually running
+        at 30 or 60 frames per second. The 60-frame versions look noticeably smoother for fast
+        movement — sports, dance, hand-held camera work — and they are worth the extra file size
+        when you plan to edit. For ordinary talking-head Shorts, 30 frames per second is fine and
+        the file is smaller. YouTube compresses every upload, so a Short downloaded at 1080p looks
+        exactly as sharp as it does in the YouTube app: no better, no worse. If the original upload
+        was blurry, shaky, or recorded in poor light, the download preserves those flaws faithfully.
+      </p>
+      <p>
+        A minute of 1080p Short is typically 10 to 25 megabytes, while the 720p version is roughly
+        half that and the 360p version a quarter. On a phone screen the difference between 1080p
+        and 720p is hard to spot; on a television or a monitor it is obvious. So match the quality
+        to the screen you will watch on: 720p for phone-only viewing, 1080p for editing or big
+        screens, and 360p only when data is truly scarce. There is no 4K option for Shorts, because
+        YouTube does not serve Shorts above 1080p, and any site promising one is upscaling the
+        same file.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Shorts on iPhone, Android, and desktop</h2>
+      <p>
+        On iPhone, Safari saves the file to the Downloads folder in the Files app. From there, tap
+        the share button and choose &ldquo;Save Video&rdquo; to move it into Photos, where it
+        appears in your camera roll like any other clip. On Android, Chrome saves to the Downloads
+        folder and shows a notification; your gallery app will usually find it on its own, and if
+        it does not, move the file into the Movies folder with your file manager. On desktop, the
+        file lands in your browser&apos;s download folder, ready to drag into an editor. In all
+        three cases, rename the file right away — &ldquo;Shorts_48291.mp4&rdquo; tells you nothing
+        a week later, while &ldquo;pottery-wheel-demo.mp4&rdquo; does.
+      </p>
+      <p>
+        One iPhone quirk is worth knowing: if Safari opens the video in its player instead of
+        downloading it, long-press the download link and choose &ldquo;Download Linked File&rdquo;.
+        On Android, if Chrome warns you about the file type, that is a generic warning for files
+        from the web — an MP4 from this site is a video file, and you can confirm it by checking
+        the file extension before you open it. And on every device, play the file once before you
+        rely on it: check the sound is in sync and the whole Short is there, not just the first few
+        seconds.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Can I download age-restricted Shorts?</strong> No. Shorts that require you to be
+        signed in and age-verified cannot be downloaded by any legitimate tool, because the video
+        itself is not publicly accessible without that check.
+      </p>
+      <p>
+        <strong>Is YouTube Premium a better option than downloading?</strong> Often, yes. Premium
+        lets you save videos inside the YouTube app for offline viewing, legally and with the
+        creator getting paid. Downloading a file is better when you need the file itself — for
+        editing, archiving your own work, or watching somewhere the YouTube app is not available.
+      </p>
+      <p>
+        <strong>Why does re-uploading a Short get channels strikes?</strong> Because re-uploading
+        someone else&apos;s video without permission is copyright infringement, and YouTube&apos;s
+        Content ID system detects it automatically. Even with credit in the description, a re-upload
+        can be claimed or struck. Reaction videos and commentary can qualify as fair use in some
+        countries, but simply reposting the clip does not.
+      </p>
+      <p>
+        <strong>Can I download a Short longer than 60 seconds?</strong> Yes. YouTube now allows
+        Shorts up to three minutes, and the same steps apply — the file is just larger. Very long
+        Shorts are still served as ordinary vertical videos, so pick the quality that fits your
+        storage.
+      </p>
+      <p>
+        <strong>Why is there no sound on my downloaded Short?</strong> Either the Short&apos;s audio
+        track failed to resolve, or the original uses music that YouTube muted in some regions. Try
+        downloading again, and try the MP3 option separately — if the MP3 has sound, the video
+        download simply missed its audio stream.
+      </p>
     </GuideLayout>
   )
 }

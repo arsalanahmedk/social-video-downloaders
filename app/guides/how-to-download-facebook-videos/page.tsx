@@ -122,6 +122,99 @@ export default function GuidePage() {
         prepared. And whichever way you save a video, remember that the person who posted it still
         owns it — keep it for personal use, and ask before you repost it anywhere else.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Facebook Watch, Reels, and live replays</h2>
+      <p>
+        Facebook hosts several kinds of video, and the download steps are the same for all of them,
+        but it helps to know which kind you are dealing with. Facebook Watch videos are the
+        long-form ones: show episodes, documentaries, community broadcasts, often several minutes
+        or hours long, shown in landscape. Reels are the short vertical clips, under ninety seconds,
+        that Facebook pushes in its feed. Live replays are recordings of broadcasts that have
+        finished — while a broadcast is still live, it cannot be downloaded, because the file does
+        not exist yet. Once the creator publishes the replay, it behaves like any other public
+        video. The format you get matches the source: a Watch video downloads in landscape at up
+        to 1080p, a Reel in vertical 1080p, and a long replay can be a very large file, so check
+        your storage before you start.
+      </p>
+      <p>
+        Stories are the exception. A Facebook story disappears after 24 hours, and stories from
+        personal profiles are usually visible only to friends, which puts them outside what any
+        legitimate downloader can reach. Public page stories are sometimes accessible, but the
+        window is short and the failure rate is high, so do not plan around saving stories. If a
+        story matters to you, ask the person who posted it for the original file — that is faster
+        and more reliable than any tool, and it respects their choice about who sees it.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">fb.watch and mobile links</h2>
+      <p>
+        Facebook share links come in several shapes, and all of them work here. The most common is
+        the fb.watch short link, which Facebook generates when you tap share on a phone — it looks
+        like fb.watch followed by a short code, and it redirects to the real video page. The full
+        watch link looks like facebook.com/watch/?v= followed by a long number. Links copied from
+        the mobile site start with m.facebook.com, and links from the Facebook app sometimes
+        include extra tracking parameters after a question mark. You can paste any of these forms
+        as they are; the downloader follows the redirect and finds the video. If a link fails, the
+        most common cause is that you copied a link to a post that contains a video, rather than
+        the video itself — open the post, tap the video so it plays on its own page, and copy the
+        link from there.
+      </p>
+      <p>
+        One more shape to know: links to videos inside private groups look identical to public
+        ones, but they fail because the group is not public. Facebook shows you the video because
+        you are a member; a downloader, which has no account and no membership, sees a login wall.
+        That is the correct behaviour, and any tool claiming to download from private groups is
+        asking you to hand over your Facebook login — never do that. If the video is yours or you
+        have the poster&apos;s permission, the safe route is to ask them to share the file or make
+        the post public.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Quality and file sizes for long videos</h2>
+      <p>
+        Short clips are small, but a two-hour Facebook Watch broadcast at 1080p can easily pass one
+        gigabyte, and at 720p it is roughly half that. Before downloading a long video, check the
+        quality options and think about what you will actually do with the file. If you are going to
+        watch it once on your phone, 720p or even 480p is plenty and downloads far faster. If you
+        are archiving a broadcast you made yourself, or editing clips out of it, take the highest
+        quality and download on Wi-Fi — a mobile connection can take a very long time for a file
+        that size, and a connection drop halfway means starting over.
+      </p>
+      <p>
+        Facebook also offers lower qualities — 360p and sometimes 240p — which are useful when data
+        is scarce or storage is tight. The picture is soft at those sizes, but the sound is the
+        same, so they suit lectures, talks, and podcasts where the words matter more than the
+        picture. Whatever quality you choose, play the first minute of the downloaded file before
+        you delete anything: long downloads are the most likely to be cut short by a connection
+        problem, and a file that stops at forty minutes looks complete until you try to watch the
+        end.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Can I download a video from a private Facebook group?</strong> No. Private groups
+        require membership and a login, so their videos are not public. Ask a group admin or the
+        person who posted the video to share the file with you directly.
+      </p>
+      <p>
+        <strong>Why does Facebook ask me to log in when I open a link?</strong> Because the video is
+        not public — it is friends-only, group-only, or age-restricted — or because Facebook is
+        rate-limiting anonymous viewing from your network. Try the link in a private browser
+        window: if Facebook still demands a login, the video is not publicly accessible.
+      </p>
+      <p>
+        <strong>Can I download a live video while it is streaming?</strong> No. A live stream has no
+        finished file to download. Wait until the broadcast ends and the creator publishes the
+        replay, then download the replay like any other public video.
+      </p>
+      <p>
+        <strong>Does downloading work for Facebook stories?</strong> Rarely. Stories expire after 24
+        hours and are usually visible only to friends, so most story links fail. Ask the poster
+        for the original file instead.
+      </p>
+      <p>
+        <strong>Can I repost a Facebook video on my own page?</strong> Only with the creator&apos;s
+        permission. Downloading a video does not give you the right to publish it, and Facebook&apos;s
+        systems detect re-uploaded content. Credit the creator, link the original post, and ask
+        first — most page owners are happy to agree when they are asked properly.
+      </p>
     </GuideLayout>
   )
 }

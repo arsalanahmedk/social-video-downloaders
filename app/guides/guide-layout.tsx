@@ -15,10 +15,15 @@ export const GUIDE_LINKS = [
   { slug: 'how-to-extract-audio-from-videos', title: 'How to Extract Audio from Videos (MP3)' },
   { slug: 'how-to-download-videos-on-android', title: 'How to Download Videos on Android' },
   { slug: 'how-to-download-videos-safely', title: 'How to Download Videos Safely' },
+  { slug: 'how-to-download-tiktok-photos', title: 'How to Download TikTok Photo Posts' },
+  { slug: 'how-to-download-instagram-stories', title: 'How to Download Instagram Stories' },
+  { slug: 'how-to-download-twitter-gifs', title: 'How to Download X (Twitter) GIFs' },
+  { slug: 'how-to-download-facebook-reels', title: 'How to Download Facebook Reels' },
+  { slug: 'video-quality-formats-explained', title: 'Video Quality and Formats Explained' },
 ]
 
 // Publish / last-edit dates per guide, matching the sitemap's honest lastmod.
-// First batch published 13 Nov 2026, second batch 18 Nov 2026.
+// First batch published 13 Nov 2026, second batch 18 Nov 2026, third batch 23 Nov 2026.
 export const GUIDE_DATES: Record<string, { published: string; modified: string }> = {
   'how-to-download-instagram-reels': { published: '2026-11-13', modified: '2026-11-13' },
   'how-to-download-tiktok-videos-without-watermark': { published: '2026-11-13', modified: '2026-11-13' },
@@ -30,6 +35,12 @@ export const GUIDE_DATES: Record<string, { published: string; modified: string }
   'how-to-extract-audio-from-videos': { published: '2026-11-18', modified: '2026-11-18' },
   'how-to-download-videos-on-android': { published: '2026-11-18', modified: '2026-11-18' },
   'how-to-download-videos-safely': { published: '2026-11-18', modified: '2026-11-18' },
+  // Third batch, published 23 Nov 2026.
+  'how-to-download-tiktok-photos': { published: '2026-11-23', modified: '2026-11-23' },
+  'how-to-download-instagram-stories': { published: '2026-11-23', modified: '2026-11-23' },
+  'how-to-download-twitter-gifs': { published: '2026-11-23', modified: '2026-11-23' },
+  'how-to-download-facebook-reels': { published: '2026-11-23', modified: '2026-11-23' },
+  'video-quality-formats-explained': { published: '2026-11-23', modified: '2026-11-23' },
 }
 
 export function GuideLayout({

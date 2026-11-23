@@ -119,6 +119,101 @@ export default function GuidePage() {
         Those are the behaviours that get accounts banned and, in serious cases, lead to copyright
         complaints.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Why TikTok video downloads often fail right now</h2>
+      <p>
+        Honesty first: TikTok video downloads are the least reliable downloads on this site at the
+        moment, and you should know why before you rely on them. TikTok aggressively blocks
+        automated requests coming from cloud server addresses, which is exactly where a web-based
+        downloader runs. The same video link that plays perfectly in your browser can return an
+        error when a server tries to fetch it, because TikTok treats the server&apos;s address
+        differently from your phone&apos;s. This is not a problem with your link, and it is not
+        something you did wrong. It is TikTok protecting its platform, and it affects every
+        web-based downloader, not just this one.
+      </p>
+      <p>
+        What does work, in practice? Trying again later sometimes helps, because TikTok&apos;s
+        blocking varies over time, and some videos resolve on a second or third attempt. Trying a
+        different network on your own device does not change the server-side block, so do not waste
+        time switching between Wi-Fi and mobile data for this particular problem. And be deeply
+        suspicious of any site that claims TikTok video downloads always work: it is either showing
+        you a cached copy, asking you to install something, or simply not telling the truth. If a
+        TikTok video matters to you, the most reliable option is still TikTok&apos;s own save button
+        where the creator allows it — watermark and all — or asking the creator for the file
+        directly.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">TikTok photo posts: the reliable alternative</h2>
+      <p>
+        Not everything on TikTok is a video. Photo posts — carousels of still images, often with
+        music — are a large and growing share of what people publish, and they download far more
+        reliably than videos. A photo post is fetched through a different route that TikTok does
+        not block in the same way, so a link like tiktok.com/@username/photo/ followed by a long
+        number will usually resolve to every image in the carousel, each as a separate JPG file at
+        its original resolution. If you collect reference images, mood boards, or photo sets from
+        creators, this is the TikTok format that actually works consistently here.
+      </p>
+      <p>
+        The steps are the same as for a video: tap share on the photo post, copy the link, paste it
+        into the downloader, and pick the images you want. Photo posts sometimes carry a short
+        slideshow-style video version as well; if you only want the stills, choose the JPG options
+        and skip the video. As with videos, only public photo posts can be downloaded, the creator
+        still owns the images, and reposting them without permission or credit is not acceptable.
+        See our guide to downloading TikTok photo posts for the full walkthrough, including what to
+        do when a carousel only partly loads.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Using a clean download in an edit</h2>
+      <p>
+        A clean TikTok file is a vertical video, usually 1080 pixels wide and 1920 tall, at 30
+        frames per second. Most phone editors — CapCut, InShot, VN, and the built-in editors on
+        iPhone and Android — accept it directly, and you can trim, caption, or combine it with your
+        own footage without converting it first. Keep the original file untouched and do your edits
+        on a copy, so you can always go back. If you are stitching several clips together, match
+        their resolutions before you export: mixing a 720p clip into a 1080p timeline forces the
+        editor to upscale it, which softens the whole video.
+      </p>
+      <p>
+        Two details are easy to miss. First, TikTok videos often have captions or text baked into
+        the picture near the edges; leave a margin when you add your own text so the two do not
+        collide. Second, the audio on a TikTok is frequently the whole point — a trending sound, a
+        voiceover, a song. If you re-upload the clip somewhere else, the music in it is still
+        licensed to the original creator&apos;s post, not to you, and automated copyright checks on
+        other platforms may mute or block your version. That is a licensing problem, not a download
+        problem, and no downloader can fix it. When in doubt, use the clip for private study and
+        keep public reposts to content you made or have permission to share.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Is downloading the clean file the same as removing a watermark?</strong> No. Removing
+        a watermark means editing a stamped video to hide its origin. Downloading the clean source
+        file means saving the video as TikTok published it, before its save button added a stamp.
+        The first hides who made the video; the second does not, as long as you credit the creator
+        when you share it.
+      </p>
+      <p>
+        <strong>Can I download a TikTok draft?</strong> No. Drafts live only on the creator&apos;s
+        phone and are never published, so no downloader can reach them. Only posted, public videos
+        can be downloaded.
+      </p>
+      <p>
+        <strong>Why does the video have no sound after downloading?</strong> A small number of
+        TikTok videos use licensed music that TikTok restricts from downloads, or the audio track
+        failed to resolve. Try the audio-only option if one is offered, or re-download on a stable
+        connection. If the sound is missing in the original post itself — for example, because the
+        music was removed for copyright reasons — the download will be silent too.
+      </p>
+      <p>
+        <strong>Can I download a private TikTok video if someone sends me the link?</strong> No. A
+        link to a private video still requires the viewer to be logged in and authorised. Sharing a
+        link does not make the video public, and no legitimate tool will fetch it.
+      </p>
+      <p>
+        <strong>Will re-uploading a TikTok get my account banned?</strong> It can. Re-uploading
+        someone else&apos;s video as if it were yours violates TikTok&apos;s rules and copyright
+        law, and repeated violations lead to strikes and bans. Crediting the creator, linking the
+        original, and getting permission first is the only safe way to repost.
+      </p>
     </GuideLayout>
   )
 }

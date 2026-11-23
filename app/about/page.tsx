@@ -134,6 +134,81 @@ export default function AboutPage() {
               </p>
             </div>
 
+            {/* How the tool works, in plain terms */}
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-[32px] p-8 sm:p-12 shadow-sm space-y-5">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                How the tool works, in plain terms
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                When you paste a link, our server asks the platform&apos;s public page
+                for the media attached to that post — the same public page any visitor
+                can open in a browser. The platform returns a list of video, audio, or
+                image files it serves for that post, at the resolutions it offers. We
+                show you that list, you pick a format, and the file streams straight
+                to your device. Nothing is re-encoded on our side, nothing is stored
+                on our servers, and no account is involved at any step. The quality
+                you get is the quality the platform serves: if a video was uploaded
+                in 720p, no tool can honestly offer you a 1080p version of it.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Some platforms are harder to read from a server than others. TikTok
+                blocks requests from cloud server addresses, so TikTok videos often
+                fail here even though TikTok photo posts — which route through a
+                dedicated proxy — work reliably. LinkedIn places most video behind a
+                login wall, so most LinkedIn posts cannot be downloaded by any web
+                tool. Reddit blocks cloud addresses too, and Snapchat&apos;s servers
+                time out frequently. We say so plainly on each tool page instead of
+                pretending every platform works perfectly, because an honest
+                limitation is more useful than a broken promise.
+              </p>
+            </div>
+
+            {/* Who runs this site */}
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-[32px] p-8 sm:p-12 shadow-sm space-y-5">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                Who runs this site
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                SocialVideoDownloader is a small, independently run website, built
+                and maintained by a single developer. There is no company office, no
+                support call centre, and no venture funding behind it — just one
+                person keeping the tool fast, honest, and free. That is also why the
+                site carries no advertising that tracks you: the service is kept
+                deliberately simple, and the cost of running it is kept deliberately
+                low, so it does not need to sell your attention or your data to
+                survive.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Questions, bug reports, and correction requests reach the same
+                person who writes the code, through the{' '}
+                <Link href="/contact" className="text-blue-600 font-semibold underline">
+                  contact page
+                </Link>
+                . If a platform changes how it serves video and a tool page breaks,
+                that is the fastest way to get it fixed — tell us the platform, the
+                link that failed, and what happened, and we will look into it.
+              </p>
+            </div>
+
+            {/* Our standards for the guides */}
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-[32px] p-8 sm:p-12 shadow-sm space-y-5">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                Our standards for the guides
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Every guide on this site is written to be accurate about what
+                actually works, in plain language, with no filler and no invented
+                claims. Each guide covers the steps in order, the quality and format
+                options you will really see, troubleshooting for the failures that
+                actually happen, and the legal rules that apply to reusing someone
+                else&apos;s content. When a platform is unreliable — TikTok videos,
+                LinkedIn, Reddit, Snapchat — the guide says so, and tells you what
+                to do instead. If you find a guide that is out of date or wrong,
+                please tell us through the contact page: accuracy is the whole point
+                of having guides at all.
+              </p>
+            </div>
+
             {/* Bottom Call to Action Card */}
             <div className="rounded-[32px] bg-gradient-to-r from-blue-900 to-indigo-950 p-8 sm:p-12 text-center text-white space-y-6 shadow-2xl relative overflow-hidden mt-12">
               <div className="space-y-3 relative z-10">

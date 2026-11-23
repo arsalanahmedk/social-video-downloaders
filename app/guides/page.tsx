@@ -33,6 +33,16 @@ const GUIDE_DESCRIPTIONS: Record<string, string> = {
     'Download public videos on Android with Chrome and no app install: copy the link, save to Downloads, find the file, and keep your storage under control.',
   'how-to-download-videos-safely':
     'Spot fake download buttons and pop-ups, why never to install random downloader apps, and how to check a file before you open it.',
+  'how-to-download-tiktok-photos':
+    'Save every image from a public TikTok photo post or carousel as a JPG — photo posts download far more reliably than TikTok videos, and this guide explains why.',
+  'how-to-download-instagram-stories':
+    'Save a public story or highlight before the 24-hour window closes: copy the story link, pick the frames, and keep them organised — plus the privacy rules.',
+  'how-to-download-twitter-gifs':
+    'Every GIF on X is secretly a silent MP4. Save it from any public post, and convert it back into a real GIF file when you actually need one.',
+  'how-to-download-facebook-reels':
+    'Save a public Facebook Reel as an MP4, including fb.watch links and the private-group limits — plus music, reposting, and quality choices.',
+  'video-quality-formats-explained':
+    'What 1080p, 720p, MP4, MP3 and bitrate really mean, how big each download will be, and which quality to pick for watching, editing, or archiving.',
 }
 
 export default function GuidesIndexPage() {

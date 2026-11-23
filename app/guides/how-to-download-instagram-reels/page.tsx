@@ -118,6 +118,98 @@ export default function GuidePage() {
         repost a Reel, keep the creator&apos;s credit visible and link back to the original post — it
         is the simplest way to stay honest, and it is what most creators actually ask for.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Downloading Reels on iPhone, Android, and desktop</h2>
+      <p>
+        The steps are the same on every device, but where the file ends up is different, and that is
+        where most people get stuck. On iPhone, Safari downloads the MP4 into the Files app, under
+        Downloads, and it does not appear in Photos until you save it there. Open Files, tap the video,
+        tap the share button, and choose &ldquo;Save Video&rdquo;. After that it behaves like any
+        other clip in your camera roll, and you can trim it, share it, or drop it into an editor. If
+        you use Chrome on iPhone instead, the file still lands in Files, because iOS gives every
+        browser the same download location.
+      </p>
+      <p>
+        On Android, Chrome saves the MP4 to the Downloads folder on your internal storage and shows a
+        notification when it finishes. Tap the notification to play the file, or open your Files app
+        and look under Downloads. Most Android gallery apps pick up the Downloads folder
+        automatically, but if the video does not appear in your gallery, move it into the Movies or
+        DCIM folder with your file manager and it will show up. On desktop, the file goes to the
+        folder your browser uses for downloads — usually called Downloads — and from there you can
+        drag it into a project folder, rename it, or open it in any video player. Renaming files at
+        download time saves real frustration later: a folder full of files named
+        &ldquo;video_48291.mp4&rdquo; is almost impossible to search.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Choosing the right quality for a Reel</h2>
+      <p>
+        Instagram serves each Reel at the quality it was uploaded in, compressed to suit streaming.
+        Most Reels shot on a recent phone are available at 1080p, which is 1080 pixels wide in
+        vertical format, and older uploads may top out at 720p. A 1080p Reel of about a minute is
+        typically between 8 and 20 megabytes, depending on how much movement and detail it contains,
+        while the 720p version of the same Reel is roughly half that size. If you are saving a Reel
+        to watch offline, the smaller file is usually fine on a phone screen. If you plan to edit
+        the clip, crop it, or show it on a large display, always take the highest resolution
+        offered, because every edit after the download throws away a little more detail.
+      </p>
+      <p>
+        No downloader can give you a higher quality than Instagram itself serves. If a Reel was
+        uploaded at 720p, the 1080p option simply will not exist, and any site claiming to
+        &ldquo;upgrade&rdquo; it to 4K is stretching the same pixels, not adding detail. The same
+        applies to frame rate: a Reel recorded at 30 frames per second stays at 30 frames per
+        second no matter what a download page promises. Judge a download by whether the picture
+        looks clean at full screen and the sound stays in sync, not by the numbers written next to
+        the button.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Saving the sound and the cover, not just the video</h2>
+      <p>
+        Sometimes the part of a Reel you actually want is not the picture. A trending sound, a
+        voiceover, or a piece of music may be the reason you saved the link in the first place. In
+        that case, choose the audio-only option when the downloader offers one: you get a small MP3
+        file with the Reel&apos;s soundtrack, which is easier to keep, easier to send, and easier to
+        use as a reference while you edit your own version. It is also the honest way to study a
+        sound — you are listening to the same audio Instagram streams, rather than recording your
+        phone&apos;s speaker.
+      </p>
+      <p>
+        The cover frame of a Reel — the still image people see before they press play — can also be
+        worth saving if you are studying how creators design their hooks. Some downloaders list a
+        JPG cover alongside the video formats. Save it with the same filename as the video so the
+        two stay together, and remember that the cover is the creator&apos;s artwork just as much as
+        the video is. If you reuse either one publicly, credit the creator and link the original
+        post, exactly as you would for the video itself.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Can I download a Reel from a private account?</strong> No. If the account is private,
+        or the Reel was shared only with close friends, no legitimate tool can fetch it. Anyone
+        claiming otherwise is either misleading you or asking you to hand over your login, which you
+        should never do.
+      </p>
+      <p>
+        <strong>Is there a limit on how many Reels I can download?</strong> There is no limit on this
+        site for public Reels. The practical limit is your own storage: a hundred 1080p Reels can
+        easily pass one gigabyte, so check your free space before a big saving session, especially on
+        a phone.
+      </p>
+      <p>
+        <strong>Why does my downloaded Reel look worse than it did in Instagram?</strong> Usually
+        because the Reel was uploaded at a lower resolution, or because you picked the smaller
+        format. Try the highest resolution offered. If the original upload was soft, the download
+        will be soft too — the file is the same one Instagram streams.
+      </p>
+      <p>
+        <strong>Can I download a Reel as a GIF?</strong> Not directly. Reels are video files. If you
+        need a short looping clip, download the MP4 and convert the section you want with a video
+        editor — most editors can export a GIF, and you keep control over the length and quality.
+      </p>
+      <p>
+        <strong>What if the Reel disappears after I copied the link?</strong> Creators delete Reels,
+        accounts get renamed, and posts get taken down. If the link no longer opens in a private
+        browser window, the Reel is gone and there is nothing left to download. Save links promptly
+        when a Reel matters to you.
+      </p>
     </GuideLayout>
   )
 }

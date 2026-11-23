@@ -89,6 +89,62 @@ export default function HelpPage() {
               ))}
             </div>
 
+            {/* Troubleshooting, step by step */}
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+              <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+                Troubleshooting, step by step
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                When a link fails, work through these checks in order before assuming
+                the site is broken. First, open the link in a private or incognito
+                browser window without signing in: if it asks you to log in, the post
+                is login-walled and cannot be downloaded by any web tool. Second,
+                confirm the post is still there and still public — deleted posts and
+                posts switched to private fail for every downloader. Third, copy a
+                clean link from the post&apos;s own page, without tracking
+                parameters, and paste that instead of a shortened share link.
+                Fourth, check the platform: TikTok videos, LinkedIn, Reddit, and
+                Snapchat are all unreliable from a cloud server, for the reasons
+                explained on their tool pages, so a failure there usually means the
+                platform blocked the request. Finally, wait an hour and try once
+                more — platforms rate-limit requests, and a short wait often clears
+                a temporary block. Retrying ten times in a row does not help and can
+                make a rate limit worse.
+              </p>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                If a download finishes but the file is wrong — silent, frozen, or
+                only a few seconds long — the download itself was interrupted or the
+                platform served an incomplete stream. Re-download on stable Wi-Fi,
+                and play the file through once before closing the tab. If a video
+                has no sound, check whether the original post has sound at all:
+                GIFs are always silent, some Reels lose their licensed music, and
+                Reddit videos only carry sound when the audio stream resolves
+                alongside the video stream.
+              </p>
+            </div>
+
+            {/* Platform reliability, honestly */}
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+              <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+                Which platforms work reliably — and which do not
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                YouTube, Instagram Reels and photos, Facebook videos and Reels,
+                X / Twitter, and Pinterest resolve reliably for public posts, in
+                the resolutions those platforms serve. TikTok photo posts work
+                reliably through a dedicated proxy; TikTok videos frequently fail
+                because TikTok blocks requests from cloud server addresses.
+                LinkedIn video is mostly behind a login wall and usually cannot be
+                downloaded. Reddit videos are unreliable for the same cloud-blocking
+                reason. Snapchat Spotlight clips time out frequently. Threads has
+                no dedicated download extractor, so many Threads posts fail — the
+                Instagram version of the same post, which most creators cross-post,
+                usually resolves without trouble. Each tool page states its own
+                reliability plainly, so check the page for the platform you are
+                using before relying on it.
+              </p>
+            </div>
+
             {/* Need More Help Box */}
             <div className="bg-[#040817] border border-blue-900/40 animate-border-glow rounded-3xl p-8 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
               <div className="flex items-center gap-5">

@@ -171,6 +171,40 @@ export default function ContactPage() {
 
             </div>
 
+            {/* What to include in your message */}
+            <div className="mt-10 bg-[#f8fafc] border border-slate-200/80 rounded-[32px] p-8 sm:p-10 shadow-sm space-y-4">
+              <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+                What to include in your message
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                The more specific your message, the faster it can be answered. For a
+                broken download, include the platform (for example Instagram Reels
+                or TikTok), the exact link you pasted, what happened — no result, an
+                error, or a file with no sound — and the device and browser you were
+                using. For a copyright or takedown request, include the link to the
+                original work, proof that you own it or represent the owner, and
+                the link on this site you are asking about. For a correction to a
+                guide, name the guide and quote the sentence that is wrong. Messages
+                that only say &ldquo;it doesn&apos;t work&rdquo; cannot be acted on,
+                because the cause is almost always specific to the platform and the
+                link.
+              </p>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                This site is run by one person, so replies are not instant. Most
+                messages are answered within a few days. If your question is already
+                answered on the{' '}
+                <a href="/faq" className="text-blue-600 font-semibold underline">
+                  FAQ page
+                </a>
+                , the{' '}
+                <a href="/help" className="text-blue-600 font-semibold underline">
+                  Help Center
+                </a>
+                , or the relevant tool page, you will usually find the answer
+                faster there than by waiting for an email.
+              </p>
+            </div>
+
           </div>
         </section>
       </main>

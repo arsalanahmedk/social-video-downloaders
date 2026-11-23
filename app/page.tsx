@@ -99,8 +99,69 @@ export default function HomePage() {
                 href="/guides"
                 className="inline-flex items-center gap-1.5 text-base font-semibold text-blue-600 hover:text-blue-700"
               >
-                View all 10 guides <ArrowRight size={16} />
+                View all 15 guides <ArrowRight size={16} />
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* How downloading works, legality, and quality — plain-language explainer */}
+        <section className="bg-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-100">
+          <div className="max-w-5xl mx-auto space-y-6">
+            <div className="text-center space-y-3">
+              <span className="text-xs font-bold tracking-wider text-blue-600 uppercase">
+                How It Works
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-950">
+                Downloading, explained honestly
+              </h2>
+            </div>
+
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-[32px] p-8 sm:p-12 shadow-sm space-y-5">
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                When you paste a link, our server asks the platform&apos;s public
+                page for the media attached to that post — the same public page
+                any visitor can open in a browser. The platform returns the video,
+                audio, or image files it serves for that post, at the resolutions
+                it offers, and the file streams straight to your device. Nothing
+                is re-encoded, nothing is stored on our servers, and no account is
+                needed. The quality you get is the quality the platform serves: a
+                video uploaded in 720p cannot honestly be offered to you in 1080p,
+                and a photo Instagram compressed will not become print-sharp by
+                downloading it. Where a platform offers several resolutions, you
+                pick the one that fits — Full HD for editing and big screens,
+                standard definition for phone viewing and slow connections, and
+                audio-only MP3 when the words matter more than the picture.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Legality comes down to one simple rule: downloading a file does
+                not give you rights in it. The creator still owns their work, so a
+                downloaded video, photo, or song is for your personal, offline use
+                unless the creator has said otherwise. Saving your own video, a
+                public clip to watch on a flight, or reference material for a
+                class project is ordinary, accepted use. Reposting someone
+                else&apos;s video as your own, using their photo in an advert, or
+                selling their work is not — ask first, get permission in writing,
+                and give credit. Only public posts can be downloaded here: private
+                accounts, private groups, and posts behind a login are out of
+                reach, by design, and no tool that asks for your password should
+                ever be trusted.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Some platforms are harder than others, and we say so on each tool
+                page rather than pretending otherwise. YouTube, Instagram, Facebook,
+                X, and Pinterest resolve reliably for public posts. TikTok videos
+                frequently fail because TikTok blocks requests from cloud server
+                addresses — while TikTok photo posts work reliably through a
+                dedicated proxy. LinkedIn places most video behind a login wall,
+                Reddit blocks cloud addresses, Snapchat&apos;s servers time out
+                often, and Threads has no dedicated download extractor, so many
+                Threads posts fail where the same post on Instagram resolves
+                without trouble. If a link fails, the platform&apos;s own
+                restriction is usually the reason, and the guides explain what to
+                do instead — including, for your own content, keeping the original
+                file, which is always the cleanest copy you will ever have.
+              </p>
             </div>
           </div>
         </section>

@@ -131,6 +131,40 @@ export default function FAQPage() {
         {/* Categorized FAQs Section */}
         <section className="bg-white py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto space-y-16">
+
+            {/* Intro: how to use this page, and the honest limits */}
+            <div className="bg-[#f8fafc] border border-slate-200/80 rounded-[32px] p-8 sm:p-12 shadow-sm space-y-5">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                Before you ask: the limits that explain most failures
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Most questions about this site have the same root cause: a platform
+                that restricts what a server-side tool can read. Only public posts
+                can be downloaded — private accounts, private groups, and posts
+                behind a login are out of reach for any legitimate tool, and this
+                site never asks for your password. Beyond that, four platforms are
+                unreliable from a cloud server: TikTok blocks video requests from
+                cloud addresses (its photo posts work reliably, through a proxy);
+                LinkedIn places most video behind a login wall; Reddit blocks cloud
+                addresses; and Snapchat&apos;s servers time out frequently. If your
+                link is from one of those platforms and it fails, the answer is
+                usually the platform&apos;s restriction, not a mistake in your link.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                The fastest check is to open the link in a private or incognito
+                browser window without signing in. If the post plays there, it is
+                public and should resolve. If it asks you to log in, it is
+                login-walled and cannot be downloaded. If it plays in the private
+                window but still fails here, copy the clean link — without tracking
+                parameters — from the post&apos;s own page and try once more. The
+                platform-specific guides explain each platform&apos;s quirks in
+                detail; start with the{' '}
+                <Link href="/guides" className="text-blue-600 font-semibold underline">
+                  guides page
+                </Link>
+                .
+              </p>
+            </div>
             
             {faqs.map((cat, idx) => (
               <div key={idx} className="space-y-6">

@@ -115,6 +115,102 @@ export default function GuidePage() {
         If a download arrives as an .apk or .exe instead of an .mp4, delete it without opening it —
         it is not a video.
       </p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Chrome settings that make downloads easier</h2>
+      <p>
+        A few minutes in Chrome&apos;s settings prevents most Android download headaches. Open
+        Chrome, tap the three-dot menu, and go to Settings, then Downloads. Turn on &ldquo;Ask
+        where to save files&rdquo; if you like choosing a folder each time — it stops every video
+        landing in the same Downloads folder and makes organising easier. Check that Chrome has
+        storage permission in your phone&apos;s Settings under Apps, because without it downloads
+        fail silently or vanish. And if your phone has a data-saver or battery-saver mode that
+        pauses background activity, expect long downloads to stall when the screen turns off; keep
+        Chrome in the foreground for large files, or plug the phone in while it downloads.
+      </p>
+      <p>
+        Your default browser matters more than people expect. Samsung Internet, Firefox, Brave,
+        and Edge all download files on Android, but they store them in different places and show
+        different prompts. Chrome is the most predictable choice for this site, because the steps
+        in this guide were written against it, and its download notifications are the clearest.
+        Whatever browser you use, keep it updated: old browsers mishandle modern download headers
+        and produce files with no extension or the wrong name, which then refuse to play. If a
+        download misbehaves in one browser, trying Chrome before anything else is the fastest
+        diagnostic step you have.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Moving files to your gallery and sharing them</h2>
+      <p>
+        Android&apos;s gallery apps scan certain folders automatically — DCIM, Pictures, and
+        Movies — and usually pick up Downloads too, but not always, and not immediately. If a
+        downloaded video does not appear in your gallery, open your Files app (called Files, My
+        Files, or File Manager depending on your phone), go to Downloads, long-press the file,
+        and move it to the Movies folder. It will appear in your gallery within seconds. Photos
+        work the same way: move a JPG into Pictures if your gallery ignores Downloads. This is
+        also the moment to rename the file, because &ldquo;videoplayback (3).mp4&rdquo; is
+        useless as a name and will collide with the next download that gets the same default
+        name.
+      </p>
+      <p>
+        Sharing a downloaded file is straightforward: in Files or your gallery, tap share and
+        choose WhatsApp, Telegram, email, or nearby share. WhatsApp compresses videos heavily,
+        so a 1080p clip arrives looking soft — if quality matters, send the file as a document
+        instead of a video, which WhatsApp transmits without recompressing, or use a cloud link.
+        For moving files to a computer, a USB cable is still the fastest and most reliable
+        method: plug in, choose &ldquo;File transfer&rdquo; on the phone, and copy from the
+        Downloads or Movies folder. Bluetooth works for small files but is painfully slow for
+        video.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Mobile data vs Wi-Fi</h2>
+      <p>
+        A minute of 1080p video is 10 to 25 megabytes, and a long Facebook broadcast can pass a
+        gigabyte. On a capped mobile plan, that adds up fast: ten minutes of HD video is a
+        noticeable chunk of a small monthly allowance. Download on Wi-Fi whenever you can, and if
+        you must use mobile data, pick 720p or 480p — the difference on a phone screen is small
+        and the file is half the size or less. Android lets you check data usage per app in
+        Settings, under Network, so you can see exactly what Chrome has consumed before your bill
+        surprises you.
+      </p>
+      <p>
+        Connection quality matters as much as speed. A download that starts on weak mobile data
+        and drops halfway usually has to restart from the beginning, because most browsers do not
+        resume interrupted downloads from this kind of site. If your signal is poor, wait for
+        Wi-Fi, or download the smaller quality and re-download the better one later. And if a
+        download seems stuck at the same percentage for minutes, cancel it and try again rather
+        than leaving it: a stuck download holds a partial file that looks complete but stops
+        early, which is worse than no file at all.
+      </p>
+
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 pt-6">Frequently asked questions</h2>
+      <p>
+        <strong>Where do downloads go on Android?</strong> To the Downloads folder on your
+        internal storage, unless you changed the location in your browser&apos;s settings. Find
+        it in your Files app under Downloads, or under Internal storage, then Download.
+      </p>
+      <p>
+        <strong>Can I save files to my SD card?</strong> Yes, if your phone has one. In Chrome&apos;s
+        download settings you can sometimes choose the SD card as the location, or you can move
+        files there afterwards with your Files app. SD cards are slower than internal storage,
+        so very high-bitrate videos may stutter when played from the card — move them back to
+        internal storage for smooth playback.
+      </p>
+      <p>
+        <strong>Why does Chrome say the file may be harmful?</strong> Chrome warns about any
+        executable file type from the web. A genuine video download ends in .mp4, .jpg, or .mp3.
+        If the file ends in .apk or .exe, it is not a video: delete it without opening it and
+        re-download from the correct button.
+      </p>
+      <p>
+        <strong>My storage is full. What should I delete first?</strong> Old downloads you have
+        already watched, duplicate files with names like &ldquo;(1)&rdquo; and
+        &ldquo;(2)&rdquo;, and app caches. Check Settings, then Storage, to see what is actually
+        using the space — it is often a single app&apos;s cache, not your videos.
+      </p>
+      <p>
+        <strong>Do I need a downloader app from the Play Store?</strong> No. This site works in
+        your browser with no app, no account, and no installation. Apps that promise the same
+        thing often carry aggressive advertising or ask for permissions a downloader has no
+        business having, like access to your contacts or messages.
+      </p>
     </GuideLayout>
   )
 }

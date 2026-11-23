@@ -80,6 +80,41 @@ export default function PrivacyPage() {
               </p>
             </div>
 
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">6. Analytics</h2>
+              <p className="text-slate-600 text-base">
+                We use Google Analytics to understand, in aggregate, how the site is used — which pages are visited, which countries visitors come from, and which devices and browsers they use. Analytics data is aggregated and anonymised: it does not identify individual visitors, and it is not combined with any other information about you. Analytics helps us decide which guides to write and which tool pages need fixing. If you prefer not to be counted, you can block analytics with any standard browser extension or content blocker, and the site will continue to work normally.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">7. Third-Party Services</h2>
+              <p className="text-slate-600 text-base">
+                The site runs on infrastructure provided by third parties: Vercel hosts the website, and Render hosts the service that resolves media links. When you use the downloader, your request passes through those providers&apos; servers, and their own privacy policies apply to the technical data they handle, such as IP addresses in server logs. The social platforms themselves — Instagram, TikTok, YouTube, and the rest — receive the public post link you submit, because resolving the media requires asking that platform&apos;s public page for it. We do not send your personal information to any platform, and we do not use advertising networks that track you across websites.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">8. Data Retention</h2>
+              <p className="text-slate-600 text-base">
+                We retain as little as possible, for as short a time as possible. Submitted URLs are processed in ephemeral server memory and discarded when the request finishes. Downloaded media passes through temporary streaming buffers and is discarded immediately; no copy is kept. Server logs held by our hosting providers may retain technical records such as IP addresses for a limited period for security and debugging, under those providers&apos; own retention policies. We do not keep a database of users, links, or downloads, and there is nothing to delete on request because nothing about you is stored.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">9. Children&apos;s Privacy</h2>
+              <p className="text-slate-600 text-base">
+                This service is intended for users aged 13 and over. We do not knowingly collect personal information from children under 13, and we collect no personal information from anyone, since no account or personal details are ever requested. If you are a parent or guardian and believe a child has shared personal information with us — for example through the contact page — please contact us and we will remove it promptly.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-950 tracking-tight">10. Contact Us About Privacy</h2>
+              <p className="text-slate-600 text-base">
+                Questions about this policy, or requests relating to your privacy, can be sent through the contact page. Because we do not hold accounts or personal data, most requests can be answered simply by explaining what is — and is not — collected, as described above.
+              </p>
+            </div>
+
           </div>
         </section>
       </main>
