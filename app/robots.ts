@@ -3,9 +3,12 @@ import type { MetadataRoute } from 'next'
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
+      // /_next/static/ is explicitly allowed so crawlers can fetch the
+      // JS/CSS/fonts needed to render pages fully; /api/, the rest of
+      // /_next/ and /download/ stay closed.
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/_next/static/'],
         disallow: ['/api/', '/_next/', '/download/']
       },
       // AI search crawlers are explicitly allowed — the "allow ChatGPT
@@ -23,7 +26,7 @@ export default function robots(): MetadataRoute.Robots {
           'Google-Extended',
           'CCBot'
         ],
-        allow: '/',
+        allow: ['/', '/_next/static/'],
         disallow: ['/api/', '/_next/', '/download/']
       }
     ],

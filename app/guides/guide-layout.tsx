@@ -23,24 +23,42 @@ export const GUIDE_LINKS = [
 ]
 
 // Publish / last-edit dates per guide, matching the sitemap's honest lastmod.
-// First batch published 13 Nov 2026, second batch 18 Nov 2026, third batch 23 Nov 2026.
+// First batch published 13 Nov 2026, second batch 18 Nov 2026, third batch
+// 23 Nov 2026. All guides' prose was expanded 23 Nov 2026, so modified is
+// 2026-11-23 for every guide.
 export const GUIDE_DATES: Record<string, { published: string; modified: string }> = {
-  'how-to-download-instagram-reels': { published: '2026-11-13', modified: '2026-11-13' },
-  'how-to-download-tiktok-videos-without-watermark': { published: '2026-11-13', modified: '2026-11-13' },
-  'how-to-download-youtube-shorts': { published: '2026-11-13', modified: '2026-11-13' },
-  'how-to-download-facebook-videos': { published: '2026-11-13', modified: '2026-11-13' },
-  'how-to-save-videos-for-offline-viewing-legally': { published: '2026-11-13', modified: '2026-11-13' },
-  'how-to-download-x-twitter-videos': { published: '2026-11-18', modified: '2026-11-18' },
-  'how-to-download-pinterest-videos': { published: '2026-11-18', modified: '2026-11-18' },
-  'how-to-extract-audio-from-videos': { published: '2026-11-18', modified: '2026-11-18' },
-  'how-to-download-videos-on-android': { published: '2026-11-18', modified: '2026-11-18' },
-  'how-to-download-videos-safely': { published: '2026-11-18', modified: '2026-11-18' },
+  'how-to-download-instagram-reels': { published: '2026-11-13', modified: '2026-11-23' },
+  'how-to-download-tiktok-videos-without-watermark': { published: '2026-11-13', modified: '2026-11-23' },
+  'how-to-download-youtube-shorts': { published: '2026-11-13', modified: '2026-11-23' },
+  'how-to-download-facebook-videos': { published: '2026-11-13', modified: '2026-11-23' },
+  'how-to-save-videos-for-offline-viewing-legally': { published: '2026-11-13', modified: '2026-11-23' },
+  'how-to-download-x-twitter-videos': { published: '2026-11-18', modified: '2026-11-23' },
+  'how-to-download-pinterest-videos': { published: '2026-11-18', modified: '2026-11-23' },
+  'how-to-extract-audio-from-videos': { published: '2026-11-18', modified: '2026-11-23' },
+  'how-to-download-videos-on-android': { published: '2026-11-18', modified: '2026-11-23' },
+  'how-to-download-videos-safely': { published: '2026-11-18', modified: '2026-11-23' },
   // Third batch, published 23 Nov 2026.
   'how-to-download-tiktok-photos': { published: '2026-11-23', modified: '2026-11-23' },
   'how-to-download-instagram-stories': { published: '2026-11-23', modified: '2026-11-23' },
   'how-to-download-twitter-gifs': { published: '2026-11-23', modified: '2026-11-23' },
   'how-to-download-facebook-reels': { published: '2026-11-23', modified: '2026-11-23' },
   'video-quality-formats-explained': { published: '2026-11-23', modified: '2026-11-23' },
+}
+
+// Dedicated tool page for each guide, so guide readers can jump straight to
+// the matching downloader instead of only to the homepage tool.
+const GUIDE_TOOLS: Record<string, { href: string; label: string }> = {
+  'how-to-download-instagram-reels': { href: '/instagram-reels', label: 'Instagram Reels Downloader' },
+  'how-to-download-tiktok-videos-without-watermark': { href: '/tiktok-no-watermark', label: 'TikTok No Watermark Downloader' },
+  'how-to-download-youtube-shorts': { href: '/youtube-shorts', label: 'YouTube Shorts Downloader' },
+  'how-to-download-facebook-videos': { href: '/facebook-video', label: 'Facebook Video Downloader' },
+  'how-to-download-x-twitter-videos': { href: '/twitter-video', label: 'X (Twitter) Video Downloader' },
+  'how-to-download-pinterest-videos': { href: '/pinterest-video', label: 'Pinterest Video Downloader' },
+  'how-to-extract-audio-from-videos': { href: '/audio-extractor', label: 'Audio Extractor' },
+  'how-to-download-tiktok-photos': { href: '/tiktok', label: 'TikTok Downloader' },
+  'how-to-download-instagram-stories': { href: '/instagram-stories', label: 'Instagram Stories Downloader' },
+  'how-to-download-twitter-gifs': { href: '/twitter-gif', label: 'X (Twitter) GIF Downloader' },
+  'how-to-download-facebook-reels': { href: '/facebook-reels', label: 'Facebook Reels Downloader' },
 }
 
 export function GuideLayout({
@@ -55,6 +73,7 @@ export function GuideLayout({
   currentSlug: string
 }) {
   const related = GUIDE_LINKS.filter((g) => g.slug !== currentSlug)
+  const tool = GUIDE_TOOLS[currentSlug]
 
   // Plain server-rendered Article + BreadcrumbList schema (a normal script
   // tag, so it is present in the raw HTML for crawlers without JS).
@@ -140,6 +159,13 @@ export function GuideLayout({
             <a href="/#downloader" className="neurex-yellow-btn px-6 py-3 text-sm inline-flex items-center gap-2 font-bold">
               Try the downloader <ArrowRight size={15} className="text-black" />
             </a>
+            {tool && (
+              <div>
+                <Link href={tool.href} className="text-blue-300 font-semibold underline text-sm inline-flex items-center gap-2">
+                  Try the {tool.label} <ArrowRight size={15} />
+                </Link>
+              </div>
+            )}
           </div>
 
           <div className="max-w-3xl mx-auto mt-14">

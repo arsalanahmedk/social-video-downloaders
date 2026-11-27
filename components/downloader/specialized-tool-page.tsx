@@ -158,9 +158,25 @@ export function SpecializedToolPage({ config }: { config: ToolPageConfig }) {
 
   const selectedFormat = media?.formats.find((f) => f.id === selectedFormatId) || media?.formats[0]
 
+  // FAQPage schema from the same visible FAQs, so crawlers can surface them
+  // as rich results. Same plain-script pattern as the /faq page.
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: config.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  }
+
   return (
     <div className="min-h-screen bg-[#030712] font-sans antialiased text-slate-900 selection:bg-yellow-400 selection:text-black">
       <NeurexNavbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
 
       <main>
         {/* ── 1. Hero Header matching Homepage Style ── */}

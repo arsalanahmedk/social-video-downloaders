@@ -215,6 +215,18 @@ export default function GuidePage() {
         subscriptions, because it is a file, not a feed — but most audio apps remember playback
         position for local files too.
       </p>
+      <p>
+        <strong>Can I extract audio from a Facebook video?</strong> Yes, if the video is public.
+        Copy the link from the public Facebook Watch video or video post, paste it into the
+        extractor, and choose the MP3 option. Videos that are friends-only, in private groups,
+        or behind a login wall cannot be extracted, because the audio is not publicly served.
+      </p>
+      <p>
+        <strong>How do I save audio from a video on my phone?</strong> Open the video in your
+        phone&apos;s browser, copy its link, paste it into the extractor, and choose MP3. The
+        file downloads to your phone&apos;s Downloads folder, and any audio app can play it —
+        no extra app or account is needed.
+      </p>
     </GuideLayout>
   )
 }
